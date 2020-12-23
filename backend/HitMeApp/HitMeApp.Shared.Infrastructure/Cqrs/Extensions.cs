@@ -10,18 +10,23 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
     {
         public static ContainerBuilder AddCqrs(this ContainerBuilder containerBuilder, Assembly assembly = null)
         {
+            var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
+
             return containerBuilder
-                .AddCqrsCommands(assembly)
-                .AddCqrsQueries(assembly)
-                .AddCqrsEvents(assembly);
+                .AddCqrsCommands(finalAssembly)
+                .AddCqrsQueries(finalAssembly)
+                .AddCqrsEvents(finalAssembly);
         }
         public static ContainerBuilder AddCqrsCommands(this ContainerBuilder containerBuilder, Assembly assembly = null)
         {
             var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
 
             containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
-                .Where(t => t.IsAssignableFrom(typeof(ICommandHandler<>)) || t.IsAssignableFrom(typeof(ICommandHandler<,>)))
-                .AsImplementedInterfaces()
+                .AsClosedTypesOf(typeof(ICommandHandler<>))
+                .InstancePerLifetimeScope();
+
+            containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
+                .AsClosedTypesOf(typeof(ICommandHandler<,>))
                 .InstancePerLifetimeScope();
 
             containerBuilder.RegisterType<InMemoryCommandBus>()
@@ -36,8 +41,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
             var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
 
             containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
-                .Where(t => t.IsAssignableFrom(typeof(IQueryHandler<,>)))
-                .AsImplementedInterfaces()
+                .AsClosedTypesOf(typeof(IQueryHandler<,>))
                 .InstancePerLifetimeScope();
 
             containerBuilder.RegisterType<InMemoryQueryBus>()
@@ -52,8 +56,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
             var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
 
             containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
-                .Where(t => t.IsAssignableFrom(typeof(IEventHandler<>)))
-                .AsImplementedInterfaces()
+                .AsClosedTypesOf(typeof(IEventHandler<>))
                 .InstancePerLifetimeScope();
 
             containerBuilder.RegisterType<InMemoryEventBus>()

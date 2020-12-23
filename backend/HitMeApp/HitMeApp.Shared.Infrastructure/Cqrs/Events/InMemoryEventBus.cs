@@ -15,7 +15,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Events
             _context = context;
         }
 
-        public async Task Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public async Task Publish<TEvent>(TEvent @event) where TEvent : class, IEvent
         {
             if (@event is null)
             {

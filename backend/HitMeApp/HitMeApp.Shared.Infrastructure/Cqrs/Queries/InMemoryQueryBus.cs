@@ -13,15 +13,16 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Queries
             _context = context;
         }
 
-        public async Task<TResult> Query<TQuery, TResult>(TQuery query) where TQuery : IQuery<TResult>
+        public async Task<TResult> Query<TResult>(IQuery<TResult> query)
         {
             if (query is null)
             {
                 throw new ArgumentNullException(nameof(query), "Command cannot be null");
             }
 
-            var handler = _context.Resolve<IQueryHandler<TQuery, TResult>>();
-            return await handler.Handle(query);
+            var handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TResult));
+            dynamic handler = _context.Resolve(handlerType);
+            return await handler.Handle((dynamic) query);
         }
     }
 }

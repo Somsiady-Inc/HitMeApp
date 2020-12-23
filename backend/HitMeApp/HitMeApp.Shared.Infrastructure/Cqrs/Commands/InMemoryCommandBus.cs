@@ -13,7 +13,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
             _context = context;
         }
 
-        public async Task Dispatch<TCommand>(TCommand command) where TCommand : ICommand
+        public async Task Dispatch<TCommand>(TCommand command) where TCommand : class, ICommand
         {
             if (command is null)
             {
@@ -28,15 +28,16 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
             }
         }
 
-        public async Task<TResult> Dispatch<TCommand, TResult>(TCommand command) where TCommand : ICommand
+        public async Task<TResult> Dispatch<TResult>(ICommand<TResult> command)
         {
             if (command is null)
             {
-                throw new ArgumentNullException(nameof(TCommand), "Command cannot be null");
+                throw new ArgumentNullException(nameof(ICommand<TResult>), "Command cannot be null");
             }
 
-            var handler = _context.Resolve<ICommandHandler<TCommand, TResult>>();
-            return await handler.Handle(command);
+            var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
+            dynamic handler = _context.Resolve(handlerType);
+            return await handler.Handle((dynamic) command);
         }
     }
 }

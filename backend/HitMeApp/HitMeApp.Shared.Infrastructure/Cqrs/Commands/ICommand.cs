@@ -5,7 +5,7 @@
         // Marker interface
     }
 
-    public interface ICommand<TResult>
+    public interface ICommand<out TResult>
     {
         // Marker interface
     }
