@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
 {
-    internal class DefaultCommandBus : ICommandBus
+    internal sealed class InMemoryCommandBus : ICommandBus
     {
         private readonly IComponentContext _context;
 
-        public DefaultCommandBus(IComponentContext context)
+        public InMemoryCommandBus(IComponentContext context)
         {
             _context = context;
         }
