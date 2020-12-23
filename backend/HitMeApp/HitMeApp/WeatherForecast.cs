@@ -1,6 +1,6 @@
 using System;
 
-namespace HitMeApp
+namespace HitMeApp.Api
 {
     public class WeatherForecast
     {
