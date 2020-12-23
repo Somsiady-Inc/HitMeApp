@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HitMeApp.Users
 {
-    internal sealed class DefaultUserModule : IUserModule
+    internal sealed class DefaultUserModuleClient : IUserModuleClient
     {
         public async Task Command<TCommand>(IUserCommand command)
         {

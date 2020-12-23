@@ -1,4 +1,5 @@
 using Autofac;
+using HitMeApp.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,10 +28,13 @@ namespace HitMeApp.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HitMeApp", Version = "v1" });
             });
+
+            services.AddUsersModule();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            // Autofac registrations
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,10 +51,13 @@ namespace HitMeApp.Api
 
             app.UseAuthorization();
 
+            app.UseUsersModule();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

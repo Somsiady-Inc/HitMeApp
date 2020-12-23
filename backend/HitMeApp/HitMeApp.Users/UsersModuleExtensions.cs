@@ -6,16 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HitMeApp.Users
 {
-    public static class UserModuleExtensions
+    public static class UsersModuleExtensions
     {
-        public static IServiceCollection AddUserModule(this IServiceCollection services)
+        public static IServiceCollection AddUsersModule(this IServiceCollection services)
         {
             services.RouteModuleControllers();
-            services.AddTransient<IUserModule, DefaultUserModule>();
+            services.AddTransient<IUserModuleClient, DefaultUserModuleClient>();
             return services;
         }
 
-        public static IApplicationBuilder UseUserModule(this IApplicationBuilder app)
+        public static IApplicationBuilder UseUsersModule(this IApplicationBuilder app)
         {
             var containerBuilder = new ContainerBuilder();
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
