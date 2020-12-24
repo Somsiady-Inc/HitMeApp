@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using HitMeApp.Shared.Infrastructure.Logging;
 using HitMeApp.Shared.Infrastructure.Web;
 using HitMeApp.Users.Contract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace HitMeApp.Users
 {
@@ -18,7 +20,12 @@ namespace HitMeApp.Users
         public static IApplicationBuilder UseUsersModule(this IApplicationBuilder app)
         {
             var containerBuilder = new ContainerBuilder();
+            var logger = Log.Logger.ForModule("Users");
+            containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
+
+            logger.Information("User's module has been started successfully");
+
             return app;
         }
     }
