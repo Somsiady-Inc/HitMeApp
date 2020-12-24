@@ -2,26 +2,38 @@ name: Main
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   branch-convention-check:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     steps:
-    - uses: deepakputhraya/action-branch-name@master
-      with:
-        regex: '^([a-z]+)\/([a-z0-9]+(?:-[a-z0-9]+)*)'
-        allowed_prefixes: 'feature,release,bugfix'
-        ignore: main,develop
-        min_length: 3
-        max_length: 100
-    - name: Trigger next workflow
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
-      with:
-          token: ${{ secrets.REPO_GHA_PAT }}
-          repository: ${{ github.repository }}
-          event-type: main-workflow-passed
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+      - uses: deepakputhraya/action-branch-name@master
+        with:
+          regex: '^([a-z]+)\/([a-z0-9]+(?:-[a-z0-9]+)*)'
+          allowed_prefixes: "feature,release,bugfix"
+          ignore: main,develop
+          min_length: 3
+          max_length: 100
+
+  build-dotnet:
+    needs: [branch-convention-check]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.101
+      - name: Restore dependencies
+        working-directory: ./backend/HitMeApp
+        run: dotnet restore
+      - name: Build
+        working-directory: ./backend/HitMeApp
+        run: dotnet build --no-restore
+      - name: Test
+        working-directory: ./backend/HitMeApp
+        run: dotnet test --no-build --verbosity normal
