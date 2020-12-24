@@ -7,17 +7,6 @@ on:
     branches: [ main ]
 
 jobs:
-  branch-convention-check:
-    runs-on: 'ubuntu-latest'
-    steps:
-    - uses: deepakputhraya/action-branch-name@master
-      with:
-        regex: '^([a-z]+)\/([a-z0-9]+(?:-[a-z0-9]+)*)'
-        allowed_prefixes: 'feature,release,bugfix'
-        ignore: main,develop
-        min_length: 3
-        max_length: 100
-     
   build:
     runs-on: ubuntu-latest
 
