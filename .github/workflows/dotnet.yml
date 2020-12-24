@@ -20,11 +20,11 @@ jobs:
     - name: Current Directory
       run: ls -la
     - name: Restore dependencies
+      working-directory: ./backend
       run: dotnet restore
-      working-directory: ./backend
     - name: Build
+      working-directory: ./backend
       run: dotnet build --no-restore
-      working-directory: ./backend
     - name: Test
-      run: dotnet test --no-build --verbosity normal
       working-directory: ./backend
+      run: dotnet test --no-build --verbosity normal
