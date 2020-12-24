@@ -17,3 +17,11 @@ jobs:
         ignore: main,develop
         min_length: 3
         max_length: 100
+    - name: Trigger next workflow
+      if: success()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: ${{ github.repository }}
+          event-type: main-workflow-passed
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
