@@ -16,7 +16,7 @@ jobs:
         allowed_prefixes: 'feature,release,bugfix'
         ignore: main,develop
         min_length: 3
-        max_length: 30
+        max_length: 100
      
   build:
     runs-on: ubuntu-latest
