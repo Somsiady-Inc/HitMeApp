@@ -16,7 +16,7 @@ FILES=$(git diff --cached --name-only --diff-filter=ACM *.cs | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Format input for dotnet-formatter
-echo "$FILES" | cat | xargs | sed -e 's/ / /g' | xargs dotnet-format --workspace "$ROOT_DIR/backend/HitMeApp" --include
+echo "$FILES" | cat | xargs | sed -e 's/ / /g' | xargs dotnet dotnet-format --workspace $ROOT_DIR/backend/HitMeApp --include
 
 # Add back the modified files to staging
 echo "$FILES" | xargs git add

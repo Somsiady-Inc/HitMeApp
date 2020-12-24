@@ -22,7 +22,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
 
             var didResolveHandler = _context.TryResolve(out ICommandHandler<TCommand> handler);
 
-            if (didResolveHandler)
+            if(didResolveHandler)
             {
                 await handler.Handle(command);
             }
