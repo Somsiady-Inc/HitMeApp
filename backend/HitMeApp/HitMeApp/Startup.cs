@@ -1,3 +1,4 @@
+﻿using System;
 using Autofac;
 using HitMeApp.Users;
 using Microsoft.AspNetCore.Builder;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
 
 namespace HitMeApp.Api
 {

@@ -1,6 +1,6 @@
-﻿using Autofac;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Autofac;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs.Queries
 {

@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Shared.Infrastruct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{BB56675D-14E1-4ABA-9B7E-6DF37C0CB884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HitMeApp.Users", "HitMeApp.Users\HitMeApp.Users.csproj", "{7A27DC13-E753-4295-B570-BD8C0F2B192E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Users", "HitMeApp.Users\HitMeApp.Users.csproj", "{7A27DC13-E753-4295-B570-BD8C0F2B192E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B2E7DC4-60DD-441B-A957-D28C5483AD02}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,21 +4,20 @@ LC_ALL=C
 
 # 1. Formatting .NET staged files
 
-ROOT_DIR=$(pwd)
+# Select files to format and make the path relative to .NET solution
+FILES=$(git diff --cached --name-only --diff-filter=ACM *.cs | sed 's| |\\ |g' | xargs realpath --relative-to="$(pwd)/backend/HitMeApp")
+[ -z "$FILES" ] && exit 0
 
-# cd "$ROOT_DIR/backend/HitMeApp"
+# Go to the backend solution root
+cd "$(pwd)/backend/HitMeApp"
 
 # Restore dotnet tools
 dotnet tool restore
 
-# Select files to format
-FILES=$(git diff --cached --name-only --diff-filter=ACM *.cs | sed 's| |\\ |g')
-[ -z "$FILES" ] && exit 0
+# Format input for dotnet formatter
+echo "$FILES" | cat | xargs | sed -e 's/ / /g' | xargs dotnet format --include
 
-# Format input for dotnet-formatter
-echo "$FILES" | cat | xargs | sed -e 's/ / /g' | xargs dotnet dotnet-format --workspace $ROOT_DIR/backend/HitMeApp --include
-
-# Add back the modified files to staging
+# Add the modified files back to staging
 echo "$FILES" | xargs git add
 
 exit 0
