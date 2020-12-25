@@ -1,6 +1,6 @@
-﻿using Autofac;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Autofac;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
 {
@@ -22,7 +22,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
 
             var didResolveHandler = _context.TryResolve(out ICommandHandler<TCommand> handler);
 
-            if(didResolveHandler)
+            if (didResolveHandler)
             {
                 await handler.Handle(command);
             }
@@ -37,7 +37,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
 
             var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
             dynamic handler = _context.Resolve(handlerType);
-            return await handler.Handle((dynamic) command);
+            return await handler.Handle((dynamic)command);
         }
     }
 }

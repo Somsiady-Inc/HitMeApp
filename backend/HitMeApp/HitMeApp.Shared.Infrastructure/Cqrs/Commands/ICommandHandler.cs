@@ -2,7 +2,7 @@
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs.Commands
 {
-    public interface ICommandHandler<TCommand> where TCommand : class,  ICommand
+    public interface ICommandHandler<TCommand> where TCommand : class, ICommand
     {
         public Task Handle(TCommand command);
     }

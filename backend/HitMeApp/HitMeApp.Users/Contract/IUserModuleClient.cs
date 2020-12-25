@@ -1,6 +1,6 @@
-﻿using HitMeApp.Users.Contract.Commands;
+﻿using System.Threading.Tasks;
+using HitMeApp.Users.Contract.Commands;
 using HitMeApp.Users.Contract.Queries;
-using System.Threading.Tasks;
 
 namespace HitMeApp.Users.Contract
 {

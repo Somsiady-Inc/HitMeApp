@@ -1,3 +1,4 @@
+﻿using System;
 using Autofac;
 using HitMeApp.Users;
 using Microsoft.AspNetCore.Builder;

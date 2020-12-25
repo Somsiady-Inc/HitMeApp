@@ -1,10 +1,10 @@
-﻿using Autofac;
+﻿using System.Threading.Tasks;
+using Autofac;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
 using HitMeApp.Shared.Infrastructure.Cqrs.Queries;
 using HitMeApp.Users.Contract;
 using HitMeApp.Users.Contract.Commands;
 using HitMeApp.Users.Contract.Queries;
-using System.Threading.Tasks;
 
 namespace HitMeApp.Users
 {

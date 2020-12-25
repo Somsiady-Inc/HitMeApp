@@ -1,8 +1,8 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
 using HitMeApp.Shared.Infrastructure.Cqrs.Events;
 using HitMeApp.Shared.Infrastructure.Cqrs.Queries;
-using System.Reflection;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs
 {

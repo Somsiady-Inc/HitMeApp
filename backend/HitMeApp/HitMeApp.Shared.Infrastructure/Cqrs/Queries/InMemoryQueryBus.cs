@@ -1,6 +1,6 @@
-﻿using Autofac;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Autofac;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs.Queries
 {
@@ -22,7 +22,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Queries
 
             var handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TResult));
             dynamic handler = _context.Resolve(handlerType);
-            return await handler.Handle((dynamic) query);
+            return await handler.Handle((dynamic)query);
         }
     }
 }

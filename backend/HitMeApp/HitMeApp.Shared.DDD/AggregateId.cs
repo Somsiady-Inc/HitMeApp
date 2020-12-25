@@ -1,5 +1,5 @@
-﻿using HitMeApp.Shared.DDD.Exceptions;
-using System;
+﻿using System;
+using HitMeApp.Shared.DDD.Exceptions;
 
 namespace HitMeApp.Shared.DDD
 {

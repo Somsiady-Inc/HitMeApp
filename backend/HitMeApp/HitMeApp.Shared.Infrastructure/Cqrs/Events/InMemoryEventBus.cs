@@ -1,8 +1,8 @@
-﻿using Autofac;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs.Events
 {
@@ -24,7 +24,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs.Events
 
             var didResolveHandler = _context.TryResolve(out IEnumerable<IEventHandler<TEvent>> handlers);
 
-            if (didResolveHandler)
+            if(didResolveHandler)
             {
                 var handlerTasks = handlers.Select(handler => handler.Handle(@event));
                 await Task.WhenAll(handlerTasks);
