@@ -1,8 +1,8 @@
 ﻿using System.Net.Mail;
-using System.Security;
 using System.Threading.Tasks;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
 using HitMeApp.Users.Contract.Commands;
+using HitMeApp.Users.Cryptography;
 using HitMeApp.Users.Exceptions;
 using HitMeApp.Users.Infrastructure;
 using HitMeApp.Users.Models;
@@ -29,7 +29,8 @@ namespace HitMeApp.Users.Handlers.Commands
             if (!IsPasswordValid(command.Password))
                 throw new PasswordNotValidException("Password is not valid.");
 
-            var user = new User() { Email = command.Email, Password = command.Password };
+            var hashedPassword = Crypto.Hash(command.Password);
+            var user = new User() { Email = command.Email, Password = hashedPassword };
             // TODO: send integration event
             return _repository.Add(user);
         }
