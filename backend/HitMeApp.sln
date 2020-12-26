@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{96469C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{743134C9-C258-40B6-86BF-9A6EAA93DE93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Shared.DDD", "HitMeApp.Shared.DDD\HitMeApp.Shared.DDD.csproj", "{12E9728D-7109-4BB7-A915-F3C6D98B341C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Shared.DDD", "Shared\HitMeApp.Shared.DDD\HitMeApp.Shared.DDD.csproj", "{12E9728D-7109-4BB7-A915-F3C6D98B341C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Shared.Infrastructure", "HitMeApp.Shared.Infrastructure\HitMeApp.Shared.Infrastructure.csproj", "{178A2CE4-90ED-44AB-9FE9-F427D7F51F42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Shared.Infrastructure", "Shared\HitMeApp.Shared.Infrastructure\HitMeApp.Shared.Infrastructure.csproj", "{178A2CE4-90ED-44AB-9FE9-F427D7F51F42}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{BB56675D-14E1-4ABA-9B7E-6DF37C0CB884}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Users", "HitMeApp.Users\HitMeApp.Users.csproj", "{7A27DC13-E753-4295-B570-BD8C0F2B192E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Users", "Modules\Users\HitMeApp.Users\HitMeApp.Users.csproj", "{7A27DC13-E753-4295-B570-BD8C0F2B192E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B2E7DC4-60DD-441B-A957-D28C5483AD02}"
 	ProjectSection(SolutionItems) = preProject

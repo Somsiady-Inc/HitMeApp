@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HitMeApp.Users\HitMeApp.Users.csproj" />
+    <ProjectReference Include="..\Modules\Users\HitMeApp.Users\HitMeApp.Users.csproj" />
   </ItemGroup>
 
 </Project>
