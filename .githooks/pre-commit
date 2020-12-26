@@ -5,11 +5,11 @@ LC_ALL=C
 # 1. Formatting .NET staged files
 
 # Select files to format and make paths relative to .NET solution
-FILES=$(git diff --cached --name-only --diff-filter=ACM *.cs | sed 's| |\\ |g' | xargs -r realpath --relative-to="$(pwd)/backend/HitMeApp")
+FILES=$(git diff --cached --name-only --diff-filter=ACM *.cs | sed 's| |\\ |g' | xargs -r realpath --relative-to="$(pwd)/backend")
 [ -z "$FILES" ] && exit 0
 
 # Go to the backend solution root
-cd "$(pwd)/backend/HitMeApp"
+cd "$(pwd)/backend"
 
 # Restore dotnet tools
 dotnet tool restore

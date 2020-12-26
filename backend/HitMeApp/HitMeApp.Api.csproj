@@ -5,6 +5,10 @@
     <HooksPath>.githooks</HooksPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Properties\launchSettings.json~RF167a7c12.TMP" />
   </ItemGroup>
@@ -12,10 +16,6 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-    <PackageReference Include="DotnetHooks" Version="1.0.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
     <PackageReference Include="Serilog" Version="2.10.0" />
@@ -24,8 +24,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <Target Name="SetGitHooksFolder" AfterTargets="Restore" Condition="'$(Configuration)'!='Release'">
+    <Exec Command="git config core.hooksPath $(HooksPath)" ConsoleToMsBuild="true"/>
+  </Target>
+
   <ItemGroup>
-    <ProjectReference Include="..\HitMeApp.Users\HitMeApp.Users.csproj" />
+    <ProjectReference Include="..\Modules\Users\HitMeApp.Users\HitMeApp.Users.csproj" />
   </ItemGroup>
 
 </Project>
