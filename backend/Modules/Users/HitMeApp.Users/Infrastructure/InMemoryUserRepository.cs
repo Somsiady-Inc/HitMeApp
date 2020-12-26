@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HitMeApp.Users.Models;
+using System.Linq;
 
 namespace HitMeApp.Users.Infrastructure
 {
@@ -12,6 +13,11 @@ namespace HitMeApp.Users.Infrastructure
         {
             _users.Add(user);
             return Task.CompletedTask;
+        }
+
+        public bool Exists(string email)
+        {
+            return _users.Any(u => u.Email == email);
         }
     }
 }

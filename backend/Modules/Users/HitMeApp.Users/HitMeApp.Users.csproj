@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\HitMeApp.Shared.DDD\HitMeApp.Shared.DDD.csproj" />
     <ProjectReference Include="..\..\..\Shared\HitMeApp.Shared.Infrastructure\HitMeApp.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
