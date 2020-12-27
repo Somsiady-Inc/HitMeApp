@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,8 +8,8 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
 {
     internal sealed class DefaultExceptionMapperRegistry : IExceptionMapperRegistry
     {
-        private readonly Dictionary<string, IExceptionToResponseMapper> _exceptionMapperRegistry =
-            new Dictionary<string, IExceptionToResponseMapper>();
+        private readonly ConcurrentDictionary<string, IExceptionToResponseMapper> _exceptionMapperRegistry =
+            new ConcurrentDictionary<string, IExceptionToResponseMapper>();
 
         private IExceptionToResponseMapper _fallbackMapper;
 
@@ -22,12 +23,7 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
                 throw new ArgumentNullException(nameof(namespaceRegex), "Cannot register an exception mapper due to invalid namespace");
             }
 
-            if (_exceptionMapperRegistry.ContainsKey(namespaceRegex))
-            {
-                throw new InvalidOperationException($"One exception mapper has been already registered to the namespace {namespaceRegex}");
-            }
-
-            _exceptionMapperRegistry.Add(namespaceRegex, new TExceptionMapper());
+            _exceptionMapperRegistry.TryAdd(namespaceRegex, new TExceptionMapper());
         }
 
         public void RegisterFallbackMapper<TFallbackMapper>() where TFallbackMapper : class, IExceptionToResponseMapper, new()
