@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HitMeApp.Users.Models;
-using System.Linq;
 
 namespace HitMeApp.Users.Infrastructure
 {
@@ -15,9 +15,10 @@ namespace HitMeApp.Users.Infrastructure
             return Task.CompletedTask;
         }
 
+        public Task<IEnumerable<User>> Browse()
+            => Task.FromResult(_users.AsEnumerable());
+
         public Task<bool> Exists(string email)
-        {
-            return new Task<bool>(() => _users.Any(u => u.Email == email));
-        }
+            => Task.FromResult(_users.Any(u => u.Email == email));
     }
 }
