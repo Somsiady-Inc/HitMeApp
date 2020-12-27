@@ -15,9 +15,9 @@ namespace HitMeApp.Users.Infrastructure
             return Task.CompletedTask;
         }
 
-        public bool Exists(string email)
+        public Task<bool> Exists(string email)
         {
-            return _users.Any(u => u.Email == email);
+            return new Task<bool>(() => _users.Any(u => u.Email == email));
         }
     }
 }

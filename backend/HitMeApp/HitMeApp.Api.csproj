@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <Target Name="SetGitHooksFolder" AfterTargets="Restore" Condition="'$(Configuration)'!='Release'">
-    <Exec Command="git config core.hooksPath $(HooksPath)" ConsoleToMsBuild="true"/>
+    <Exec Command="git config core.hooksPath $(HooksPath)" ConsoleToMsBuild="true" />
   </Target>
 
   <ItemGroup>

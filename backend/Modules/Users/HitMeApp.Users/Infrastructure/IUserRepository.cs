@@ -7,6 +7,6 @@ namespace HitMeApp.Users.Infrastructure
     internal interface IUserRepository : IRepository
     {
         public Task Add(User user);
-        public bool Exists(string email);
+        public Task<bool> Exists(string email);
     }
 }

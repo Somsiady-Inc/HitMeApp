@@ -2,37 +2,41 @@
 using System.Threading.Tasks;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
 using HitMeApp.Users.Contract.Commands;
-using HitMeApp.Users.Cryptography;
 using HitMeApp.Users.Exceptions;
 using HitMeApp.Users.Infrastructure;
 using HitMeApp.Users.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace HitMeApp.Users.Handlers.Commands
 {
     internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser>
     {
         private readonly IUserRepository _repository;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public RegisterUserHandler(IUserRepository repository)
+        public RegisterUserHandler(IUserRepository repository, IPasswordHasher<User> passwordHasher)
         {
             _repository = repository;
+            _passwordHasher = passwordHasher;
         }
 
         // TODO: JWT generator
 
-        public Task Handle(RegisterUser command)
+        public async Task Handle(RegisterUser command)
         {
             if (!IsEmailValid(command.Email))
-                throw new EmailNotValidException("Email is not valid.");
-            if (_repository.Exists(command.Email))
+                throw new InvalidEmailException("Email is not valid.");
+            var hasEmailAlreadyBeenUsed = await _repository.Exists(command.Email);
+            if (hasEmailAlreadyBeenUsed)
                 throw new UserAlreadyExistsException("User with that email already exists.");
             if (!IsPasswordValid(command.Password))
-                throw new PasswordNotValidException("Password is not valid.");
+                throw new InvalidPasswordException("Password is not valid.");
 
-            var hashedPassword = Crypto.Hash(command.Password);
-            var user = new User() { Email = command.Email, Password = hashedPassword };
+            var user = new User() { Email = command.Email };
+            var hashedPassword = _passwordHasher.HashPassword(user, command.Password);
+            user.Password = hashedPassword;
             // TODO: send integration event
-            return _repository.Add(user);
+            await _repository.Add(user);
         }
 
         private static bool IsEmailValid(string email)

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace HitMeApp.Users.Exceptions
 {
-    internal class UserAlreadyExistsException : Exception
+    internal class UserAlreadyExistsException : ApplicationException
     {
         public UserAlreadyExistsException()
         {
