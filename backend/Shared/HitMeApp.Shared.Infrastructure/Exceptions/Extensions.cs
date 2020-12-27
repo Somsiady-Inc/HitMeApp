@@ -32,5 +32,8 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
             app.ApplicationServices.GetService<IExceptionMapperRegistry>().Register<TExceptionMapper>(namespaceRegex);
             return app;
         }
+
+        internal static bool IsDefault<T>(this T obj)
+            => default(T).Equals(obj);
     }
 }
