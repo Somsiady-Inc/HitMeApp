@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HitMeApp.Shared.Infrastructure.Exceptions
 {
     public static class Extensions
     {
+        private static readonly string NamespaceRegex = @"(?:\.[a-zA-Z0-9]+)*";
+
         public static IServiceCollection AddErrorHandler(this IServiceCollection services)
         {
             services.AddTransient<ErrorHandlerMiddleware>();
@@ -24,6 +27,13 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
             app.UseErrorHandler();
             app.ApplicationServices.GetService<IExceptionMapperRegistry>().RegisterFallbackMapper<TFallbackExceptionMapper>();
             return app;
+        }
+
+        public static IApplicationBuilder RegisterExceptionMapperForThisModule<TExceptionMapper>(this IApplicationBuilder app)
+            where TExceptionMapper : class, IExceptionToResponseMapper, new()
+        {
+            var @namespace = Assembly.GetCallingAssembly().GetName().Name.Replace(".", @"\.") + NamespaceRegex;
+            return app.RegisterExceptionMapper<TExceptionMapper>(@namespace);
         }
 
         public static IApplicationBuilder RegisterExceptionMapper<TExceptionMapper>(this IApplicationBuilder app, string namespaceRegex = null)
