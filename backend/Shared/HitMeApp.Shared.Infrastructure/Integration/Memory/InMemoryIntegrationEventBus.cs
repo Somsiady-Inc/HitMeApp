@@ -18,7 +18,13 @@ namespace HitMeApp.Shared.Infrastructure.Integration.Memory
         {
         }
 
-        public Task Publish<TIntegrationEvent>(TIntegrationEvent @event) where TIntegrationEvent : IntegrationEvent
+        public Task Publish<TIntegrationEvent>(params TIntegrationEvent[] events) where TIntegrationEvent : IntegrationEvent
+            => Publish(events?.AsEnumerable());
+
+        public Task Publish<TIntegrationEvent>(IEnumerable<TIntegrationEvent> events) where TIntegrationEvent : IntegrationEvent
+            => Task.WhenAll(events.Select(@event => Publish(@event)));
+
+        private Task Publish<TIntegrationEvent>(TIntegrationEvent @event) where TIntegrationEvent : IntegrationEvent
         {
             var handlers = _subscriptions.Where(subscription => subscription as IntegrationEventSubscription<TIntegrationEvent> is { })
                 .Cast<IntegrationEventSubscription<TIntegrationEvent>>()
