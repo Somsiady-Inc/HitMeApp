@@ -16,6 +16,7 @@ namespace HitMeApp.Shared.Infrastructure.Integration.Memory
 
         private InMemoryIntegrationEventBus()
         {
+            // Hidden constructor due to singleton design pattern
         }
 
         public Task Publish<TIntegrationEvent>(params TIntegrationEvent[] events) where TIntegrationEvent : IntegrationEvent
