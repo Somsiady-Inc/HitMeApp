@@ -2,6 +2,7 @@
 using HitMeApp.Shared.Infrastructure.Logging;
 using HitMeApp.Shared.Infrastructure.Web;
 using HitMeApp.Users.Contract;
+using HitMeApp.Users.Infrastructure;
 using HitMeApp.Users.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,7 @@ namespace HitMeApp.Users
             var logger = Log.Logger.ForModule("Users");
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
             containerBuilder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<InMemoryUserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
 
             logger.Information("User's module has been started successfully");
