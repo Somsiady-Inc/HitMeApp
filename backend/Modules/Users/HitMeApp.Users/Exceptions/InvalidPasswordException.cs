@@ -1,23 +1,12 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using HitMeApp.Shared.Infrastructure.Exceptions;
 
 namespace HitMeApp.Users.Exceptions
 {
-    internal class InvalidPasswordException : ApplicationException
+    internal class InvalidPasswordException : AppException
     {
-        public InvalidPasswordException()
-        {
-        }
+        public override string Code => "invalid_password";
 
-        public InvalidPasswordException(string message) : base(message)
-        {
-        }
-
-        public InvalidPasswordException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected InvalidPasswordException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public InvalidPasswordException() : base("Password is not valid")
         {
         }
     }

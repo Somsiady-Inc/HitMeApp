@@ -1,24 +1,16 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using HitMeApp.Shared.Infrastructure.Exceptions;
 
 namespace HitMeApp.Users.Exceptions
 {
-    internal class InvalidEmailException : ApplicationException
+    internal class InvalidEmailException : AppException
     {
-        public InvalidEmailException()
-        {
-        }
+        public override string Code => "invalid_email";
 
-        public InvalidEmailException(string message) : base(message)
-        {
-        }
+        public string Email { get; }
 
-        public InvalidEmailException(string message, Exception innerException) : base(message, innerException)
+        public InvalidEmailException(string email) : base($"Invalid email: {email}")
         {
-        }
-
-        protected InvalidEmailException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
+            Email = email;
         }
     }
 }

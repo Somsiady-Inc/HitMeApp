@@ -1,24 +1,16 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using HitMeApp.Shared.Infrastructure.Exceptions;
 
 namespace HitMeApp.Users.Exceptions
 {
-    internal class UserAlreadyExistsException : ApplicationException
+    internal class UserAlreadyExistsException : AppException
     {
-        public UserAlreadyExistsException()
-        {
-        }
+        public override string Code => "user_already_exists";
 
-        public UserAlreadyExistsException(string message) : base(message)
-        {
-        }
+        public string Email { get; }
 
-        public UserAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
+        public UserAlreadyExistsException(string email) : base($"The user with email {email} already exists")
         {
-        }
-
-        protected UserAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
+            Email = email;
         }
     }
 }

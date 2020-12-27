@@ -25,12 +25,12 @@ namespace HitMeApp.Users.Handlers.Commands
         public async Task Handle(RegisterUser command)
         {
             if (!IsEmailValid(command.Email))
-                throw new InvalidEmailException("Email is not valid.");
+                throw new InvalidEmailException(command.Email);
             var hasEmailAlreadyBeenUsed = await _repository.Exists(command.Email);
             if (hasEmailAlreadyBeenUsed)
-                throw new UserAlreadyExistsException("User with that email already exists.");
+                throw new UserAlreadyExistsException(command.Email);
             if (!IsPasswordValid(command.Password))
-                throw new InvalidPasswordException("Password is not valid.");
+                throw new InvalidPasswordException();
 
             var user = new User() { Email = command.Email };
             var hashedPassword = _passwordHasher.HashPassword(user, command.Password);
