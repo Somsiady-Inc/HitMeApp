@@ -6,5 +6,11 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
     {
         public object Response { get; }
         public HttpStatusCode StatusCode { get; }
+
+        public ExceptionResponse(object response, HttpStatusCode statusCode)
+        {
+            Response = response;
+            StatusCode = statusCode;
+        }
     }
 }

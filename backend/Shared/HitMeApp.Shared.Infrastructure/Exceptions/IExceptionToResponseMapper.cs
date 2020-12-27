@@ -4,6 +4,6 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
 {
     public interface IExceptionToResponseMapper
     {
-        ExceptionResponse Map(Exception ex);
+        ExceptionResponse Map(Exception exception);
     }
 }

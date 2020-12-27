@@ -7,6 +7,7 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
     {
         public static IServiceCollection AddErrorHandler(this IServiceCollection services)
         {
+            services.AddTransient<ErrorHandlerMiddleware>();
             services.AddSingleton<IExceptionMapperRegistry, DefaultExceptionMapperRegistry>();
             return services;
         }
@@ -17,15 +18,15 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
             return app;
         }
 
-        public static IApplicationBuilder UseErrorHandler<TFallbackMapper>(this IApplicationBuilder app)
-            where TFallbackMapper : class, IExceptionToResponseMapper, new()
+        public static IApplicationBuilder UseErrorHandler<TFallbackExceptionMapper>(this IApplicationBuilder app)
+            where TFallbackExceptionMapper : class, IExceptionToResponseMapper, new()
         {
             app.UseErrorHandler();
-            app.ApplicationServices.GetService<IExceptionMapperRegistry>().RegisterFallbackMapper<TFallbackMapper>();
+            app.ApplicationServices.GetService<IExceptionMapperRegistry>().RegisterFallbackMapper<TFallbackExceptionMapper>();
             return app;
         }
 
-        public static IApplicationBuilder RegisterErrorHandler<TExceptionMapper>(this IApplicationBuilder app, string namespaceRegex = null)
+        public static IApplicationBuilder RegisterExceptionMapper<TExceptionMapper>(this IApplicationBuilder app, string namespaceRegex = null)
             where TExceptionMapper : class, IExceptionToResponseMapper, new()
         {
             app.ApplicationServices.GetService<IExceptionMapperRegistry>().Register<TExceptionMapper>(namespaceRegex);

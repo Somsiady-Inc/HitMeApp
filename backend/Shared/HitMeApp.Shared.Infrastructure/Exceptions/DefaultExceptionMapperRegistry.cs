@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace HitMeApp.Shared.Infrastructure.Exceptions
@@ -42,8 +41,7 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
 
         public IExceptionToResponseMapper Resolve(Exception ex)
         {
-            var exceptionNamespace = ex.GetType().Namespace;
-            var matchingEntry = _exceptionMapperRegistry.SingleOrDefault(mapperEntry => Regex.IsMatch(exceptionNamespace, mapperEntry.Key));
+            var matchingEntry = _exceptionMapperRegistry.SingleOrDefault(mapperEntry => Regex.IsMatch(ex.Source, mapperEntry.Key));
             return matchingEntry.Equals(default(KeyValuePair<string, IExceptionToResponseMapper>)) ? _fallbackMapper : matchingEntry.Value;
         }
     }

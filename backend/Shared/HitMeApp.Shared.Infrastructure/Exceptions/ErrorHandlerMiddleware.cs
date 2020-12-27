@@ -11,11 +11,11 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
     internal sealed class ErrorHandlerMiddleware : IMiddleware
     {
         private readonly IExceptionMapperRegistry _exceptionMapperRegistry;
-        private readonly ILogger _logger;
+        private readonly ILogger<ErrorHandlerMiddleware> _logger;
 
-        public ErrorHandlerMiddleware(IExceptionMapperRegistry exceptionMapper, ILogger logger)
+        public ErrorHandlerMiddleware(IExceptionMapperRegistry exceptionMapperRegistry, ILogger<ErrorHandlerMiddleware> logger)
         {
-            _exceptionMapper = exceptionMapper;
+            _exceptionMapperRegistry = exceptionMapperRegistry;
             _logger = logger;
         }
 

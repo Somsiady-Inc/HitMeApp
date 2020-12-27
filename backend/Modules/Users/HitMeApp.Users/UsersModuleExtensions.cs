@@ -1,7 +1,9 @@
 ﻿using Autofac;
+using HitMeApp.Shared.Infrastructure.Exceptions;
 using HitMeApp.Shared.Infrastructure.Logging;
 using HitMeApp.Shared.Infrastructure.Web;
 using HitMeApp.Users.Contract;
+using HitMeApp.Users.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -23,6 +25,8 @@ namespace HitMeApp.Users
             var logger = Log.Logger.ForModule("Users");
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
+
+            app.RegisterExceptionMapper<UsersModuleExceptionMapper>(@"HitMeApp.Users.*");
 
             logger.Information("User's module has been started successfully");
 
