@@ -1,5 +1,6 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
+using HitMeApp.Api.Exceptions;
+using HitMeApp.Shared.Infrastructure.Exceptions;
 using HitMeApp.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,7 @@ namespace HitMeApp.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HitMeApp", Version = "v1" });
             });
+            services.AddErrorHandler();
 
             services.AddUsersModule();
         }
@@ -49,6 +51,8 @@ namespace HitMeApp.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseErrorHandler<GlobalFallbackExceptionMapper>();
 
             app.UseUsersModule();
 
