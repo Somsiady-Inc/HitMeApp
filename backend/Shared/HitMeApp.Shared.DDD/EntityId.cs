@@ -3,16 +3,16 @@ using HitMeApp.Shared.DDD.Exceptions;
 
 namespace HitMeApp.Shared.DDD
 {
-    public class AggregateId : IEquatable<AggregateId>
+    public abstract class EntityId : IEquatable<EntityId>
     {
         public Guid Value { get; protected init; }
 
-        public AggregateId()
+        public EntityId()
         {
             Value = Guid.NewGuid();
         }
 
-        public AggregateId(Guid value)
+        public EntityId(Guid value)
         {
             if (value == Guid.Empty)
             {
@@ -22,7 +22,7 @@ namespace HitMeApp.Shared.DDD
             Value = value;
         }
 
-        public bool Equals(AggregateId other)
+        public bool Equals(EntityId other)
         {
             if (other is null) return false;
             return ReferenceEquals(this, other) || Value.Equals(other.Value);
@@ -32,7 +32,7 @@ namespace HitMeApp.Shared.DDD
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((AggregateId)obj);
+            return obj.GetType() == GetType() && Equals((EntityId)obj);
         }
 
         public override int GetHashCode()
@@ -40,11 +40,8 @@ namespace HitMeApp.Shared.DDD
             return Value.GetHashCode();
         }
 
-        public static implicit operator Guid(AggregateId id)
+        public static implicit operator Guid(EntityId id)
             => id.Value;
-
-        public static implicit operator AggregateId(Guid id)
-            => new AggregateId(id);
 
         public override string ToString() => Value.ToString();
     }
