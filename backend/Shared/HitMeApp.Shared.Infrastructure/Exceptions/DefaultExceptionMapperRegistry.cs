@@ -7,8 +7,8 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
 {
     internal sealed class DefaultExceptionMapperRegistry : IExceptionMapperRegistry
     {
-        private readonly ConcurrentDictionary<string, IExceptionToResponseMapper> _exceptionMapperRegistry =
-            new ConcurrentDictionary<string, IExceptionToResponseMapper>();
+        private readonly ConcurrentDictionary<Regex, IExceptionToResponseMapper> _exceptionMapperRegistry =
+            new ConcurrentDictionary<Regex, IExceptionToResponseMapper>();
 
         private IExceptionToResponseMapper _fallbackMapper;
 
@@ -22,7 +22,7 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
                 throw new ArgumentNullException(nameof(namespaceRegex), "Cannot register an exception mapper due to invalid namespace");
             }
 
-            _exceptionMapperRegistry.TryAdd(namespaceRegex, new TExceptionMapper());
+            _exceptionMapperRegistry.TryAdd(new Regex(namespaceRegex), new TExceptionMapper());
         }
 
         public void RegisterFallbackMapper<TFallbackMapper>() where TFallbackMapper : class, IExceptionToResponseMapper, new()
@@ -36,7 +36,7 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
 
         public IExceptionToResponseMapper Resolve(Exception ex)
         {
-            var matchingEntry = _exceptionMapperRegistry.SingleOrDefault(mapperEntry => Regex.IsMatch(ex.Source, mapperEntry.Key, RegexOptions.Compiled));
+            var matchingEntry = _exceptionMapperRegistry.SingleOrDefault(mapperEntry => mapperEntry.Key.IsMatch(ex.Source));
             return matchingEntry.IsDefault() ? _fallbackMapper : matchingEntry.Value;
         }
     }
