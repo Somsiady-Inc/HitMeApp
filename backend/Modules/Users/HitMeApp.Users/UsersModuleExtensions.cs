@@ -26,7 +26,7 @@ namespace HitMeApp.Users
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
 
-            app.RegisterExceptionMapper<UsersModuleExceptionMapper>(@"HitMeApp\.Users(?:\.[a-zA-Z0-9]+)*");
+            app.RegisterExceptionMapperForThisModule<UsersModuleExceptionMapper>();
 
             logger.Information("User's module has been started successfully");
 
