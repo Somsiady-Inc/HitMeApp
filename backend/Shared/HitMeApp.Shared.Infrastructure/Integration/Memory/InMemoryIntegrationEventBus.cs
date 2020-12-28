@@ -29,8 +29,7 @@ namespace HitMeApp.Shared.Infrastructure.Integration.Memory
         {
             var handlers = _subscriptions.Where(subscription => subscription as IntegrationEventSubscription<TIntegrationEvent> is { })
                 .Cast<IntegrationEventSubscription<TIntegrationEvent>>()
-                .Select(subscription => subscription.HandlerResolver().Handle(@event))
-                .ToList();
+                .Select(subscription => subscription.HandlerResolver().Handle(@event));
 
             return Task.WhenAll(handlers);
         }
