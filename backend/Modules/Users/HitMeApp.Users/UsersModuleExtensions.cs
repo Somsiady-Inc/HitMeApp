@@ -1,10 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using Autofac;
 using HitMeApp.Shared.Infrastructure.Cqrs;
+using HitMeApp.Shared.Infrastructure.Exceptions;
 using HitMeApp.Shared.Infrastructure.Logging;
 using HitMeApp.Shared.Infrastructure.Web;
 using HitMeApp.Users.Contract;
 using HitMeApp.Users.Infrastructure;
+using HitMeApp.Users.Infrastructure.Exceptions;
 using HitMeApp.Users.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -36,6 +38,9 @@ namespace HitMeApp.Users
             containerBuilder.AddCqrs();
 
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
+
+            app.RegisterExceptionMapperForThisModule<UsersModuleExceptionMapper>();
+
             logger.Information("User's module has been started successfully");
 
             return app;
