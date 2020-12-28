@@ -27,8 +27,8 @@ namespace HitMeApp.Shared.Infrastructure.Integration.Memory
 
         private Task Publish<TIntegrationEvent>(TIntegrationEvent @event) where TIntegrationEvent : IntegrationEvent
         {
-            var handlers = _subscriptions.Where(subscription => subscription as IntegrationEventSubscription<TIntegrationEvent> is { })
-                .Cast<IntegrationEventSubscription<TIntegrationEvent>>()
+            var handlers = _subscriptions.Select(subscription => subscription as IntegrationEventSubscription<TIntegrationEvent>)
+                .Where(subscription => subscription is { })
                 .Select(subscription => subscription.HandlerResolver().Handle(@event));
 
             return Task.WhenAll(handlers);
