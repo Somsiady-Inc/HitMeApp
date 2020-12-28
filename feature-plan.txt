@@ -1,0 +1,10 @@
+- Personalizacja (tekst o sobie, zdjęcie, podstawowe info, zainteresowania)
+- Matching (lokalizacja + preferencje)
+- Explore (szukajka ludzi)
+- Chat
+
+Domains:
+- users (+relations)
+- matching
+- chat
+- catalog

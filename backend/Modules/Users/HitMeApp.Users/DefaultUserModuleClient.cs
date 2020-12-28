@@ -10,7 +10,7 @@ namespace HitMeApp.Users
 {
     internal sealed class DefaultUserModuleClient : IUserModuleClient
     {
-        public async Task Command<TCommand>(IUserCommand command)
+        public async Task Command<TCommand>(TCommand command) where TCommand : class, IUserCommand
         {
             using var scope = UserModuleCompositionRoot.BeginLifetimeScope();
             await scope.Resolve<ICommandBus>().Dispatch(command);

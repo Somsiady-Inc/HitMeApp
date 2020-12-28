@@ -6,7 +6,7 @@ namespace HitMeApp.Users.Contract
 {
     public interface IUserModuleClient
     {
-        public Task Command<TCommand>(IUserCommand command);
+        public Task Command<TCommand>(TCommand command) where TCommand : class, IUserCommand;
         public Task<TResult> Query<TResult>(IUserQuery<TResult> query);
     }
 }
