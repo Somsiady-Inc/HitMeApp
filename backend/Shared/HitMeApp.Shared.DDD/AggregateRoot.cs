@@ -2,11 +2,10 @@
 
 namespace HitMeApp.Shared.DDD
 {
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot<TEntityId> : Entity<TEntityId> where TEntityId : EntityId
     {
         private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
 
-        public AggregateId Id { get; protected init; }
         public int Version { get; protected set; }
         public IEnumerable<IDomainEvent> DomainEvents => _domainEvents;
 
