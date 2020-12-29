@@ -6,6 +6,7 @@ using HitMeApp.Indentity.Core;
 using HitMeApp.Indentity.Infrastructure.Exceptions;
 using HitMeApp.Shared.Infrastructure.Cqrs;
 using HitMeApp.Shared.Infrastructure.Exceptions;
+using HitMeApp.Shared.Infrastructure.Integration;
 using HitMeApp.Shared.Infrastructure.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,7 @@ namespace HitMeApp.Indentity
             containerBuilder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<InMemoryUserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             containerBuilder.AddCqrs();
+            containerBuilder.UseInMemoryIntegrationEvents();
 
             IdentityModuleCompositionRoot.SetContainer(containerBuilder.Build());
 

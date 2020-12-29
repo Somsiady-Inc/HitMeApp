@@ -19,11 +19,11 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
         {
             var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
 
-            containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
+            containerBuilder.RegisterAssemblyTypes(finalAssembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<>))
                 .InstancePerLifetimeScope();
 
-            containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
+            containerBuilder.RegisterAssemblyTypes(finalAssembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<,>))
                 .InstancePerLifetimeScope();
 

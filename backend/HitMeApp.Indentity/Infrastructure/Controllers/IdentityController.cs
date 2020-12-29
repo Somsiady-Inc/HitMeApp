@@ -25,7 +25,7 @@ namespace HitMeApp.Indentity.Infrastructure.Controllers
         public async Task<IActionResult> Register(RegisterUser registerUser)
         {
             var id = await _identityModuleClient.Command(registerUser);
-            return Ok(id);
+            return CreatedAtAction(nameof(Get), new { id }, id);
         }
     }
 }
