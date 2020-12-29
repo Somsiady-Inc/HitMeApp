@@ -14,7 +14,6 @@
 @identityUrl = {{url}}/identity
 
 ###
-
 # @name RegisterUser
 POST {{identityUrl}}/register
 Content-Type: application/json
