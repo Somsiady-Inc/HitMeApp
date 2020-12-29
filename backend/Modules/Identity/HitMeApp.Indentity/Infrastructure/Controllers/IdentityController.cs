@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using HitMeApp.Indentity.Contract.Clients;
 using HitMeApp.Indentity.Contract.Commands;
