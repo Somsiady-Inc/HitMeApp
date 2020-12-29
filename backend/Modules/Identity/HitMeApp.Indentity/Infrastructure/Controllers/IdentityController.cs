@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using HitMeApp.Indentity.Contract.Clients;
 using HitMeApp.Indentity.Contract.Commands;
@@ -25,7 +26,8 @@ namespace HitMeApp.Indentity.Infrastructure.Controllers
         public async Task<IActionResult> Register(RegisterUser registerUser)
         {
             var id = await _identityModuleClient.Command(registerUser);
-            return CreatedAtAction(nameof(Get), new { id }, id);
+            var routeValuesAndContent = new { id };
+            return CreatedAtAction(nameof(Get), routeValuesAndContent, routeValuesAndContent);
         }
     }
 }
