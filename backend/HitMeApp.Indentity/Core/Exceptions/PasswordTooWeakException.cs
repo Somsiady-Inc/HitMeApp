@@ -6,8 +6,11 @@ namespace HitMeApp.Indentity.Core.Exceptions
     {
         public override string Code => "password_too_weak";
 
-        public PasswordTooWeakException(string message) : base(message)
+        public string RulesDescription { get; }
+
+        public PasswordTooWeakException(string rulesDescription) : base($"A valid password requires: {rulesDescription}")
         {
+            RulesDescription = rulesDescription;
         }
     }
 }

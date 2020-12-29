@@ -2,11 +2,10 @@
 using Autofac;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
 using HitMeApp.Shared.Infrastructure.Cqrs.Queries;
-using HitMeApp.Users.Contract;
 using HitMeApp.Users.Contract.Commands;
 using HitMeApp.Users.Contract.Queries;
 
-namespace HitMeApp.Users
+namespace HitMeApp.Users.Contract.Clients
 {
     internal sealed class DefaultUserModuleClient : IUserModuleClient
     {

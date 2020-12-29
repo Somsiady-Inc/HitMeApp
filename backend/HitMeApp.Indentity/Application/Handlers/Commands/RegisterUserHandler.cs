@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HitMeApp.Indentity.Application.Exceptions;
+using HitMeApp.Indentity.Application.Security;
 using HitMeApp.Indentity.Contract.Commands;
 using HitMeApp.Indentity.Core;
+using HitMeApp.Indentity.Core.Policies;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
 using Microsoft.AspNetCore.Identity;
 
@@ -18,9 +21,17 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
             _passwordHasher = passwordHasher;
         }
 
-        public Task<Guid> Handle(RegisterUser command)
+        public async Task<Guid> Handle(RegisterUser command)
         {
-            throw new System.NotImplementedException();
+            if (await _userRepository.Exists(command.Email))
+            {
+                throw new UserAlreadyExistsException(command.Email);
+            }
+
+            var passwordService = new PasswordHashedBasedUserPasswordService(_passwordHasher, new DefaultPasswordStrengthPolicy());
+            var user = User.New(command.Email, command.Password, passwordService);
+            await _userRepository.Add(user);
+            return user.Id;
         }
     }
 }

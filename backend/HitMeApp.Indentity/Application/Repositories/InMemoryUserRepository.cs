@@ -15,7 +15,10 @@ namespace HitMeApp.Indentity.Application.Repositories
             return Task.CompletedTask;
         }
 
-        public Task Get(UserId id)
+        public Task<User> Get(UserId id)
             => Task.FromResult(_users.SingleOrDefault(user => user.Id == id));
+
+        public Task<bool> Exists(string email)
+            => Task.FromResult(_users.Any(user => user.Email == email));
     }
 }

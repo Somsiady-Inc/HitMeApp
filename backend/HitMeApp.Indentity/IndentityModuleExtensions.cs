@@ -29,7 +29,7 @@ namespace HitMeApp.Indentity
         public static IApplicationBuilder UseIdentityModule(this IApplicationBuilder app)
         {
             var containerBuilder = new ContainerBuilder();
-            var logger = Log.Logger.ForModule("Users");
+            var logger = Log.Logger.ForModule("Identity");
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
             containerBuilder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>().InstancePerLifetimeScope();
             containerBuilder.RegisterType<InMemoryUserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
@@ -39,7 +39,7 @@ namespace HitMeApp.Indentity
 
             app.RegisterExceptionMapperForThisModule<IdentityModuleExceptionMapper>();
 
-            logger.Information("User's module has been started successfully");
+            logger.Information("Identity module has been started successfully");
             return app;
         }
     }

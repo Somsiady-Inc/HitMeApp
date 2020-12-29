@@ -8,12 +8,12 @@ namespace HitMeApp.Indentity.Core.Policies
         {
             if (!IsPasswordStrongEnough(password))
             {
-                throw new PasswordTooWeakException(password);
+                throw new PasswordTooWeakException("at least 8 characters");
             }
         }
 
+        // TODO: Agree on password stregth rules
         private static bool IsPasswordStrongEnough(string password)
-            => !string.IsNullOrWhiteSpace(password) &&
-            password.Length >= 8;
+            => !string.IsNullOrWhiteSpace(password) && password.Length >= 8;
     }
 }

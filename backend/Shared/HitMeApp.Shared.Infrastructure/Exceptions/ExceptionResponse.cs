@@ -7,7 +7,7 @@ namespace HitMeApp.Shared.Infrastructure.Exceptions
         public object Response { get; }
         public HttpStatusCode StatusCode { get; }
 
-        public ExceptionResponse(object response, HttpStatusCode statusCode)
+        public ExceptionResponse(object response, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
         {
             Response = response;
             StatusCode = statusCode;

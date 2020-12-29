@@ -5,6 +5,7 @@ namespace HitMeApp.Indentity.Core
     internal interface IUserRepository
     {
         Task Add(User user);
-        Task Get(UserId id);
+        Task<User> Get(UserId id);
+        public Task<bool> Exists(string email);
     }
 }

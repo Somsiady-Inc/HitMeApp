@@ -2,7 +2,7 @@
 using HitMeApp.Users.Contract.Commands;
 using HitMeApp.Users.Contract.Queries;
 
-namespace HitMeApp.Users.Contract
+namespace HitMeApp.Users.Contract.Clients
 {
     public interface IUserModuleClient
     {

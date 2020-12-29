@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Shared\HitMeApp.Shared.Infrastructure\HitMeApp.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\QueryHandlers\" />
-  </ItemGroup>
-
 </Project>

@@ -13,7 +13,7 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
 
             return containerBuilder
                 .AddCqrsCommands(finalAssembly)
-                .AddCqrsQueries(finalAssembly)
+                .AddCqrsQueries(finalAssembly);
         }
         public static ContainerBuilder AddCqrsCommands(this ContainerBuilder containerBuilder, Assembly assembly = null)
         {

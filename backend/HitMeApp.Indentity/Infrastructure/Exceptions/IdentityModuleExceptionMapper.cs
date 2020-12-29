@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using HitMeApp.Indentity.Core.Exceptions;
 using HitMeApp.Shared.Infrastructure.Exceptions;
 
 namespace HitMeApp.Indentity.Infrastructure.Exceptions
@@ -9,7 +10,9 @@ namespace HitMeApp.Indentity.Infrastructure.Exceptions
         public ExceptionResponse Map(Exception exception)
             => exception switch
             {
-                Exception => new ExceptionResponse("Unknown error occured in the users module", HttpStatusCode.BadRequest),
+                InvalidEmailException ex => new ExceptionResponse(ex.Message),
+                PasswordTooWeakException ex => new ExceptionResponse(ex.Message),
+                Exception => new ExceptionResponse("Unknown error occured in the users module", HttpStatusCode.InternalServerError),
                 _ => null
             };
     }

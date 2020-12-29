@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 using HitMeApp.Indentity.Core.Exceptions;
-using HitMeApp.Indentity.Core.Policies;
+using HitMeApp.Indentity.Core.Services;
 using HitMeApp.Shared.DDD;
 
 namespace HitMeApp.Indentity.Core
@@ -18,14 +18,14 @@ namespace HitMeApp.Indentity.Core
         public string Email { get; private set; }
         public string Password { get; private set; }
 
-        public static User New(string email, string password, IPasswordStrengthPolicy passwordStrengthPolicy)
+        public static User New(string email, string password, IUserPasswordService userPasswordService)
         {
             if (!IsEmailValid(email))
             {
                 throw new InvalidEmailException(email);
             }
-            passwordStrengthPolicy.Test(password);
-            return new User(Guid.NewGuid(), email, password);
+
+            return new User(Guid.NewGuid(), email, userPasswordService.GeneratePasswordForUser(password));
         }
 
         private static bool IsEmailValid(string email)

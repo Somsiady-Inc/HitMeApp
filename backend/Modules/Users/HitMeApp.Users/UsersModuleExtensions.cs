@@ -4,12 +4,9 @@ using HitMeApp.Shared.Infrastructure.Cqrs;
 using HitMeApp.Shared.Infrastructure.Exceptions;
 using HitMeApp.Shared.Infrastructure.Logging;
 using HitMeApp.Shared.Infrastructure.Web;
-using HitMeApp.Users.Contract;
-using HitMeApp.Users.Infrastructure;
+using HitMeApp.Users.Contract.Clients;
 using HitMeApp.Users.Infrastructure.Exceptions;
-using HitMeApp.Users.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -33,8 +30,6 @@ namespace HitMeApp.Users
             var containerBuilder = new ContainerBuilder();
             var logger = Log.Logger.ForModule("Users");
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
-            containerBuilder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<InMemoryUserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             containerBuilder.AddCqrs();
 
             UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
