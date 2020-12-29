@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HitMeApp.Indentity.Application.Security
 {
-    internal sealed class PasswordHashedBasedUserPasswordService : IUserPasswordService
+    internal sealed class PasswordHasherBasedUserPasswordService : IUserPasswordService
     {
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IPasswordStrengthPolicy _passwordStrengthPolicy;
 
-        public PasswordHashedBasedUserPasswordService(IPasswordHasher<User> passwordHasher, IPasswordStrengthPolicy passwordStrengthPolicy)
+        public PasswordHasherBasedUserPasswordService(IPasswordHasher<User> passwordHasher, IPasswordStrengthPolicy passwordStrengthPolicy)
         {
             _passwordHasher = passwordHasher;
             _passwordStrengthPolicy = passwordStrengthPolicy;

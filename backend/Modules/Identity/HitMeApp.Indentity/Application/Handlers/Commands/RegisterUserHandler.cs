@@ -34,7 +34,7 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
                 throw new UserAlreadyExistsException(command.Email);
             }
 
-            var passwordService = new PasswordHashedBasedUserPasswordService(_passwordHasher, new DefaultPasswordStrengthPolicy());
+            var passwordService = new PasswordHasherBasedUserPasswordService(_passwordHasher, new DefaultPasswordStrengthPolicy());
             var user = User.New(command.Email, command.Password, passwordService);
             await _userRepository.Add(user);
             await _integrationEventBusClient.Publish(new UserRegistered(user.Id));
