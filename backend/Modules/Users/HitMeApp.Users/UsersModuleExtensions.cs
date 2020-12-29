@@ -39,9 +39,9 @@ namespace HitMeApp.Users
             var container = containerBuilder.Build();
             UserModuleCompositionRoot.SetContainer(container);
 
-            app.RegisterExceptionMapperForThisModule<UsersModuleExceptionMapper>();
-
             SubscribeToRelevantIntegrationEvents(container);
+
+            app.RegisterExceptionMapperForThisModule<UsersModuleExceptionMapper>();
 
             logger.Information("User's module has been started successfully");
 

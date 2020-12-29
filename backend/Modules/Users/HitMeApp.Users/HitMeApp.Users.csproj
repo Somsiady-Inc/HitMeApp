@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\HitMeApp.Identity.IntegrationEvents\HitMeApp.Identity.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Identity\HitMeApp.Identity.IntegrationEvents\HitMeApp.Identity.IntegrationEvents.csproj" />
     <ProjectReference Include="..\..\..\Shared\HitMeApp.Shared.DDD\HitMeApp.Shared.DDD.csproj" />
     <ProjectReference Include="..\..\..\Shared\HitMeApp.Shared.Infrastructure\HitMeApp.Shared.Infrastructure.csproj" />
   </ItemGroup>
