@@ -31,7 +31,7 @@ namespace HitMeApp.Api
             });
             services.AddErrorHandler();
 
-            services.AddIndentityModule();
+            services.AddIdentityModule();
             services.AddUsersModule();
         }
 

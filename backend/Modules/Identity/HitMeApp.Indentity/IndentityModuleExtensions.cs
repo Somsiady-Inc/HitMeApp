@@ -21,7 +21,7 @@ namespace HitMeApp.Indentity
 {
     public static class IndentityModuleExtensions
     {
-        public static IServiceCollection AddIndentityModule(this IServiceCollection services)
+        public static IServiceCollection AddIdentityModule(this IServiceCollection services)
         {
             services.AddTransient<IIdentityModuleClient, DefaultIdentityModuleClient>();
             return services;
