@@ -1,0 +1,40 @@
+version "3.7"
+
+services:
+    hitmeapp-backend:
+        build: .
+        restart: unless-stopped
+        ports:
+            - 5000:80
+        networks:
+            - hitmeapp
+        depends_on:
+            - hitmeapp-db
+
+    hitmeapp-db:
+        build: ./DB
+        restart: unless-stopped
+        ports:
+            - 5432:5432
+        networks:
+            - hitmeapp
+        environment:
+            - POSTGRES_USER: postgres
+            - POSTGRES_PASSWORD: postgres
+          
+
+    hitmeapp-pgAdmin:
+        image: dpage/pgadmin4
+        restart: unless-stopped
+        ports:
+            - 5430:80
+        environment: 
+            - PGADMIN_DEFAULT_EMAIL=db@hitmeapp.com
+            - PGADMIN_DEFAULT_PASSWORD=postgres
+        depends_on:
+            - hitmeapp-db
+
+networks:
+    hitmeapp:
+        name: hitmeapp-network
+        external: true
