@@ -1,16 +1,13 @@
 ﻿using System.Runtime.CompilerServices;
 using Autofac;
-using HitMeApp.Indentity.Application.Repositories;
 using HitMeApp.Indentity.Contract.Clients;
 using HitMeApp.Indentity.Core;
-using HitMeApp.Indentity.Infrastructure.Dapper;
 using HitMeApp.Indentity.Infrastructure.Exceptions;
 using HitMeApp.Indentity.Infrastructure.IoC;
 using HitMeApp.Shared.Infrastructure.Cqrs;
 using HitMeApp.Shared.Infrastructure.Exceptions;
 using HitMeApp.Shared.Infrastructure.Integration;
 using HitMeApp.Shared.Infrastructure.Logging;
-using HitMeApp.Shared.Infrastructure.Persistence.Postgres;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
