@@ -22,7 +22,7 @@ namespace HitMeApp.Indentity.Infrastructure.IoC
                 .As<IUserRepository>()
                 .InstancePerLifetimeScope();
             builder.UsePostgres(_configuration);
-            IdentityModuleTypeHandlersPlugin.RegisterCustomTypeHandler();
+            IdentityModuleTypeHandlersPlugin.RegisterCustomTypeHandlers();
         }
     }
 }

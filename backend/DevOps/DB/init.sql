@@ -1,4 +1,4 @@
-SELECT 'CREATE DATABASE mydb' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'hitmeapp')\gexec
+SELECT 'CREATE DATABASE hitmeapp' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'hitmeapp')\gexec
 GRANT ALL PRIVILEGES ON DATABASE hitmeapp TO postgres;
 
 \connect hitmeapp
