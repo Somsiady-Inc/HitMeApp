@@ -1,16 +1,6 @@
 version: "3.8"
 
 services:
-    hitmeapp-backend:
-        build: .
-        restart: unless-stopped
-        ports:
-            - 5000:80
-        networks:
-            - hitmeapp
-        depends_on:
-            - hitmeapp-db
-
     hitmeapp-db:
         build: ./DB
         restart: unless-stopped
@@ -21,20 +11,30 @@ services:
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
-          
+            POSTGRES_DB: hitmeapp
 
     hitmeapp-pgAdmin:
         image: dpage/pgadmin4
         restart: unless-stopped
         ports:
             - 5430:80
+        networks:
+            - hitmeapp
         environment: 
-            - PGADMIN_DEFAULT_EMAIL=db@hitmeapp.com
-            - PGADMIN_DEFAULT_PASSWORD=postgres
+            PGADMIN_DEFAULT_EMAIL: db@hitmeapp.com
+            PGADMIN_DEFAULT_PASSWORD: postgres
+            PG_DATABASE: hitmeapp
+            PG_USER: postgres
+            PG_PASSWORD: postgres
         depends_on:
             - hitmeapp-db
+        volumes:
+            - pg-admin:/var/lib/pgadmin
 
 networks:
     hitmeapp:
         name: hitmeapp-network
         driver: bridge
+
+volumes:
+    pg-admin:

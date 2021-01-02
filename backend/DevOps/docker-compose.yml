@@ -1,4 +1,4 @@
-version "3.7"
+version: "3.8"
 
 services:
     hitmeapp-backend:
@@ -14,10 +14,16 @@ services:
     hitmeapp-db:
         build: ./DB
         restart: unless-stopped
+        ports:
+            - 5432:5432
         networks:
             - hitmeapp
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: hitmeapp
 
 networks:
     hitmeapp:
         name: hitmeapp-network
-        external: true
+        driver: bridge
