@@ -16,19 +16,43 @@ namespace HitMeApp.Shared.Infrastructure.Persistence
         public void Run(Action<IDbConnection> action)
         {
             using var connection = _connectionFactory.CreateNewOpenedConnection();
-            action(connection);
+
+            try
+            {
+                action(connection);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public TResult Run<TResult>(Func<IDbConnection, TResult> action)
         {
             using var connection = _connectionFactory.CreateNewOpenedConnection();
-            return action(connection);
+
+            try
+            {
+                return action(connection);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public async Task<TResult> RunAsync<TResult>(Func<IDbConnection, Task<TResult>> action)
         {
             using var connection = _connectionFactory.CreateNewOpenedConnection();
-            return await action(connection);
+
+            try
+            {
+                return await action(connection);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
