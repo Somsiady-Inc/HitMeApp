@@ -15,19 +15,19 @@ namespace HitMeApp.Shared.Infrastructure.Persistence
 
         public void Run(Action<IDbConnection> action)
         {
-            using var connection = _connectionFactory.Connect();
+            using var connection = _connectionFactory.CreateNewOpenedConnection();
             action(connection);
         }
 
         public TResult Run<TResult>(Func<IDbConnection, TResult> action)
         {
-            using var connection = _connectionFactory.Connect();
+            using var connection = _connectionFactory.CreateNewOpenedConnection();
             return action(connection);
         }
 
         public async Task<TResult> RunAsync<TResult>(Func<IDbConnection, Task<TResult>> action)
         {
-            using var connection = _connectionFactory.Connect();
+            using var connection = _connectionFactory.CreateNewOpenedConnection();
             return await action(connection);
         }
     }

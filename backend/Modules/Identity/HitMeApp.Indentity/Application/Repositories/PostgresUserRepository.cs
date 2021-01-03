@@ -37,7 +37,7 @@ namespace HitMeApp.Indentity.Application.Repositories
 
         public Task<User> Get(UserId id)
         {
-            var query = $@"SELECT id, email, created_at, updated_at FROM identity.""user"" WHERE id=@{nameof(id)}";
+            var query = $@"SELECT id, email, password, created_at, updated_at FROM identity.""user"" WHERE id=@{nameof(id)}";
             return _sqlExecutor.RunAsync(connection => connection.QueryFirstOrDefaultAsync<User>(query, new { id = id.Value }));
         }
     }

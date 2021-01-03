@@ -4,6 +4,6 @@ namespace HitMeApp.Shared.Infrastructure.Persistence
 {
     public interface ISqlConnectionFactory
     {
-        public IDbConnection Connect();
+        public IDbConnection CreateNewOpenedConnection();
     }
 }

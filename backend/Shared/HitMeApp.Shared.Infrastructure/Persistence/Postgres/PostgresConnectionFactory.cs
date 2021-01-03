@@ -12,7 +12,7 @@ namespace HitMeApp.Shared.Infrastructure.Persistence.Postgres
             _databaseSettings = databaseSettings;
         }
 
-        public IDbConnection Connect()
+        public IDbConnection CreateNewOpenedConnection()
         {
             var connectionString = $"Host={_databaseSettings.Host};" +
                 $"Username={_databaseSettings.Username};" +
