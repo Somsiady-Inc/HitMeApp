@@ -4,7 +4,7 @@ using HitMeApp.Indentity.Contract.Queries;
 using HitMeApp.Indentity.Core;
 using HitMeApp.Shared.Infrastructure.Cqrs.Queries;
 
-namespace HitMeApp.Indentity.Infrastructure.QueryHandlers
+namespace HitMeApp.Indentity.Infrastructure.Persistence.QueryHandlers
 {
     internal sealed class GetUserByIdHandler : IQueryHandler<GetUserById, UserDto>
     {

@@ -1,6 +1,6 @@
 ﻿using Dapper;
 
-namespace HitMeApp.Indentity.Infrastructure.Dapper
+namespace HitMeApp.Indentity.Infrastructure.Persistence.Dapper
 {
     internal static class IdentityModuleTypeHandlersPlugin
     {

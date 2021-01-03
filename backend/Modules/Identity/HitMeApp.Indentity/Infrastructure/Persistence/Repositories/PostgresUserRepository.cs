@@ -3,7 +3,7 @@ using Dapper;
 using HitMeApp.Indentity.Core;
 using HitMeApp.Shared.Infrastructure.Persistence;
 
-namespace HitMeApp.Indentity.Application.Repositories
+namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
 {
     internal sealed class PostgresUserRepository : IUserRepository
     {

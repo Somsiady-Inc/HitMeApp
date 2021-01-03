@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HitMeApp.Indentity.Core;
 
-namespace HitMeApp.Indentity.Application.Repositories
+namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
 {
     internal sealed class InMemoryUserRepository : IUserRepository
     {

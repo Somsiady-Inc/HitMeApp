@@ -3,7 +3,7 @@ using System.Data;
 using Dapper;
 using HitMeApp.Indentity.Core;
 
-namespace HitMeApp.Indentity.Infrastructure.Dapper
+namespace HitMeApp.Indentity.Infrastructure.Persistence.Dapper
 {
     internal sealed class UserIdTypeHandler : SqlMapper.TypeHandler<UserId>
     {

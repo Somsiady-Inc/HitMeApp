@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using HitMeApp.Indentity.Application.Repositories;
 using HitMeApp.Indentity.Core;
-using HitMeApp.Indentity.Infrastructure.Dapper;
+using HitMeApp.Indentity.Infrastructure.Persistence.Dapper;
+using HitMeApp.Indentity.Infrastructure.Persistence.Repositories;
 using HitMeApp.Shared.Infrastructure.Persistence.Postgres;
 using Microsoft.Extensions.Configuration;
 
