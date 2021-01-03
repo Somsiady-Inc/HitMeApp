@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using HitMeApp.Indentity.Application.Exceptions;
+using HitMeApp.Indentity.Core.Exceptions;
 using HitMeApp.Shared.DDD;
 using HitMeApp.Shared.Infrastructure.Exceptions;
 

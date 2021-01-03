@@ -4,6 +4,11 @@
     {
         public TEntityId Id { get; protected init; }
 
+        protected Entity()
+        {
+            // Frameworks usage
+        }
+
         protected Entity(TEntityId id)
         {
             Id = id;
