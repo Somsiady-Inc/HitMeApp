@@ -4,6 +4,6 @@ namespace HitMeApp.Indentity.Core.Policies
 {
     internal interface IPasswordStrengthPolicy : IPolicy
     {
-        public void Test(string password);
+        public void Validate(string password);
     }
 }

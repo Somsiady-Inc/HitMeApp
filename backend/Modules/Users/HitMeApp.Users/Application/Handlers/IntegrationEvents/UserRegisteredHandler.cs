@@ -16,6 +16,7 @@ namespace HitMeApp.Users.Application.Handlers.IntegrationEvents
 
         public Task Handle(UserRegistered @event)
         {
+            // TODO: Implementation needed. For now it's just a showcase of how integration events operate
             _logger.Information("Handling {eventName} event with payload: {@event}", nameof(UserRegistered), @event);
             return Task.CompletedTask;
         }

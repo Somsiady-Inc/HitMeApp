@@ -4,7 +4,7 @@ namespace HitMeApp.Indentity.Core.Policies
 {
     internal class DefaultPasswordStrengthPolicy : IPasswordStrengthPolicy
     {
-        public void Test(string password)
+        public void Validate(string password)
         {
             if (!IsPasswordStrongEnough(password))
             {
