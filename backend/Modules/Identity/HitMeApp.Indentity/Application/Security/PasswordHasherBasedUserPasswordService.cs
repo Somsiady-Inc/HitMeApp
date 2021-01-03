@@ -18,7 +18,7 @@ namespace HitMeApp.Indentity.Application.Security
 
         public string GeneratePasswordForUser(string password)
         {
-            _passwordStrengthPolicy.Test(password);
+            _passwordStrengthPolicy.Validate(password);
             return _passwordHasher.HashPassword(null, password);
         }
     }
