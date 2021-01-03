@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using HitMeApp.Api.Exceptions;
+using HitMeApp.Indentity;
 using HitMeApp.Shared.Infrastructure.Exceptions;
 using HitMeApp.Users;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,7 @@ namespace HitMeApp.Api
             });
             services.AddErrorHandler();
 
+            services.AddIdentityModule();
             services.AddUsersModule();
         }
 
@@ -54,6 +56,7 @@ namespace HitMeApp.Api
 
             app.UseErrorHandler<GlobalFallbackExceptionMapper>();
 
+            app.UseIdentityModule();
             app.UseUsersModule();
 
             app.UseEndpoints(endpoints =>

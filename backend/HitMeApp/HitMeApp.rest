@@ -1,0 +1,32 @@
+# Install REST Client extension for VS Code created by Huachao Mao to use this file correctly
+
+# ******************************************************* #
+# ------------------------ Global ----------------------- #
+# ******************************************************* #
+
+@url = http://localhost:5000
+@userId = {{RegisterUser.response.body.id}}
+
+# ******************************************************* #
+# ---------------------- Identity ----------------------- #
+# ******************************************************* #
+
+@identityUrl = {{url}}/identity
+
+###
+# @name RegisterUser
+POST {{identityUrl}}/register
+Content-Type: application/json
+
+{
+    "email": "test@hitmeapp.com",
+    "password": "Secret123$"
+}
+
+###
+# @name GetUserById
+GET {{identityUrl}}/{{userId}}
+Content-Type: application/json
+
+{
+}

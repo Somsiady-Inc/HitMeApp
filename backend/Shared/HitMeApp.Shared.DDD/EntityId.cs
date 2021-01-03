@@ -7,16 +7,11 @@ namespace HitMeApp.Shared.DDD
     {
         public Guid Value { get; protected init; }
 
-        public EntityId()
-        {
-            Value = Guid.NewGuid();
-        }
-
-        public EntityId(Guid value)
+        protected EntityId(Guid value)
         {
             if (value == Guid.Empty)
             {
-                throw new InvalidAggregateIdException();
+                throw new InvalidEntityIdException();
             }
 
             Value = value;
@@ -42,6 +37,12 @@ namespace HitMeApp.Shared.DDD
 
         public static implicit operator Guid(EntityId id)
             => id.Value;
+
+        public static bool operator ==(EntityId obj1, EntityId obj2)
+            => obj1.Equals(obj2);
+
+        public static bool operator !=(EntityId obj1, EntityId obj2)
+            => !(obj1 == obj2);
 
         public override string ToString() => Value.ToString();
     }

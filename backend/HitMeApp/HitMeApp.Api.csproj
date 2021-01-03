@@ -29,6 +29,7 @@
   </Target>
 
   <ItemGroup>
+    <ProjectReference Include="..\Modules\Identity\HitMeApp.Indentity\HitMeApp.Indentity.csproj" />
     <ProjectReference Include="..\Modules\Users\HitMeApp.Users\HitMeApp.Users.csproj" />
   </ItemGroup>
 

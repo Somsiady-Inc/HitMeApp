@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
-using HitMeApp.Shared.Infrastructure.Cqrs.Events;
 using HitMeApp.Shared.Infrastructure.Cqrs.Queries;
 
 namespace HitMeApp.Shared.Infrastructure.Cqrs
@@ -14,18 +13,17 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
 
             return containerBuilder
                 .AddCqrsCommands(finalAssembly)
-                .AddCqrsQueries(finalAssembly)
-                .AddCqrsEvents(finalAssembly);
+                .AddCqrsQueries(finalAssembly);
         }
         public static ContainerBuilder AddCqrsCommands(this ContainerBuilder containerBuilder, Assembly assembly = null)
         {
             var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
 
-            containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
+            containerBuilder.RegisterAssemblyTypes(finalAssembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<>))
                 .InstancePerLifetimeScope();
 
-            containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
+            containerBuilder.RegisterAssemblyTypes(finalAssembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<,>))
                 .InstancePerLifetimeScope();
 
@@ -46,21 +44,6 @@ namespace HitMeApp.Shared.Infrastructure.Cqrs
 
             containerBuilder.RegisterType<InMemoryQueryBus>()
                 .As<IQueryBus>()
-                .InstancePerLifetimeScope();
-
-            return containerBuilder;
-        }
-
-        public static ContainerBuilder AddCqrsEvents(this ContainerBuilder containerBuilder, Assembly assembly = null)
-        {
-            var finalAssembly = assembly ?? Assembly.GetCallingAssembly();
-
-            containerBuilder.RegisterAssemblyTypes(new[] { finalAssembly })
-                .AsClosedTypesOf(typeof(IEventHandler<>))
-                .InstancePerLifetimeScope();
-
-            containerBuilder.RegisterType<InMemoryEventBus>()
-                .As<IEventBus>()
                 .InstancePerLifetimeScope();
 
             return containerBuilder;

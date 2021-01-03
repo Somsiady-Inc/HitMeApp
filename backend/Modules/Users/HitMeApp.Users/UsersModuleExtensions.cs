@@ -1,15 +1,15 @@
 ﻿using System.Runtime.CompilerServices;
 using Autofac;
+using HitMeApp.Identity.IntegrationEvents;
 using HitMeApp.Shared.Infrastructure.Cqrs;
 using HitMeApp.Shared.Infrastructure.Exceptions;
+using HitMeApp.Shared.Infrastructure.Integration;
 using HitMeApp.Shared.Infrastructure.Logging;
 using HitMeApp.Shared.Infrastructure.Web;
-using HitMeApp.Users.Contract;
-using HitMeApp.Users.Infrastructure;
+using HitMeApp.Users.Application.Handlers.IntegrationEvents;
+using HitMeApp.Users.Contract.Clients;
 using HitMeApp.Users.Infrastructure.Exceptions;
-using HitMeApp.Users.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -33,17 +33,25 @@ namespace HitMeApp.Users
             var containerBuilder = new ContainerBuilder();
             var logger = Log.Logger.ForModule("Users");
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
-            containerBuilder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>().InstancePerLifetimeScope();
-            containerBuilder.RegisterType<InMemoryUserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             containerBuilder.AddCqrs();
+            containerBuilder.UseInMemoryIntegrationEvents(registerHandlersAutomatically: true);
 
-            UserModuleCompositionRoot.SetContainer(containerBuilder.Build());
+            var container = containerBuilder.Build();
+            UserModuleCompositionRoot.SetContainer(container);
+
+            SubscribeToRelevantIntegrationEvents(container);
 
             app.RegisterExceptionMapperForThisModule<UsersModuleExceptionMapper>();
 
             logger.Information("User's module has been started successfully");
 
             return app;
+        }
+
+        private static void SubscribeToRelevantIntegrationEvents(IContainer container)
+        {
+            var busSubscriber = container.Resolve<IIntegrationEventBusSubscriber>();
+            busSubscriber.Subscribe<UserRegistered, UserRegisteredHandler>();
         }
     }
 }

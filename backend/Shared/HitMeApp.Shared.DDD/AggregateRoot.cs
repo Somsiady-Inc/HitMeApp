@@ -9,6 +9,10 @@ namespace HitMeApp.Shared.DDD
         public int Version { get; protected set; }
         public IEnumerable<IDomainEvent> DomainEvents => _domainEvents;
 
+        protected AggregateRoot(TEntityId id) : base(id)
+        {
+        }
+
         protected void RaiseDomainEvent(IDomainEvent @event)
         {
             _domainEvents.Add(@event);
