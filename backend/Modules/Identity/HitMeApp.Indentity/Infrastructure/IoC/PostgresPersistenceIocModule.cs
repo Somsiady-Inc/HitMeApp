@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using HitMeApp.Indentity.Core;
-using HitMeApp.Indentity.Infrastructure.Persistence.Dapper;
 using HitMeApp.Indentity.Infrastructure.Persistence.Repositories;
 using HitMeApp.Shared.Infrastructure.Persistence.Postgres;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +21,6 @@ namespace HitMeApp.Indentity.Infrastructure.IoC
                 .As<IUserRepository>()
                 .InstancePerLifetimeScope();
             builder.UsePostgres(_configuration);
-            IdentityModuleTypeHandlersPlugin.RegisterCustomTypeHandlers();
         }
     }
 }

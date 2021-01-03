@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dapper;
 using HitMeApp.Indentity.Core;
+using HitMeApp.Indentity.Infrastructure.Entities;
 using HitMeApp.Shared.Infrastructure.Persistence;
 
 namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
@@ -25,7 +26,8 @@ namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
                              @{nameof(User.UpdatedAt)}
                            )";
 
-            var parameters = new { user.Id, user.Email, user.Password, user.CreatedAt, user.UpdatedAt };
+            var dbUser = user.AsDatabaseEntity();
+            var parameters = new { dbUser.Id, dbUser.Email, dbUser.Password, dbUser.CreatedAt, dbUser.UpdatedAt };
             return _sqlExecutor.RunAsync(connection => connection.ExecuteAsync(query, parameters));
         }
 
@@ -35,10 +37,11 @@ namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
             return _sqlExecutor.RunAsync(connection => connection.ExecuteScalarAsync<bool>(query, new { email }));
         }
 
-        public Task<User> Get(UserId id)
+        public async Task<User> Get(UserId id)
         {
             var query = $@"SELECT id, email, password, created_at, updated_at FROM identity.""user"" WHERE id=@{nameof(id)}";
-            return _sqlExecutor.RunAsync(connection => connection.QueryFirstOrDefaultAsync<User>(query, new { id = id.Value }));
+            var dbUser = await _sqlExecutor.RunAsync(connection => connection.QueryFirstOrDefaultAsync<UserEntity>(query, new { id = id.Value }));
+            return dbUser.AsDomainEntity();
         }
     }
 }

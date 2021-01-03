@@ -16,7 +16,7 @@ namespace HitMeApp.Indentity.Core
             => new UserId(id);
     }
 
-    internal class User : Entity<UserId>
+    internal class User : AggregateRoot<UserId>
     {
         public string Email { get; private set; }
         public string Password { get; private set; }
@@ -49,11 +49,6 @@ namespace HitMeApp.Indentity.Core
 
         public static User Load(Guid id, string email, string password, DateTime createdAt, DateTime updatedAt)
             => new User(id, email, password, createdAt, updatedAt);
-
-        protected User()
-        {
-            // Frameworks usage
-        }
 
         protected User(Guid id, string email, string password, DateTime createdAt, DateTime? updatedAt = null) : base(new UserId(id))
         {
