@@ -22,8 +22,8 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
 
         public async Task Handle(ChangeUserPassword command)
         {
-            var user = await _userRepository.Get(command.Guid)
-                ?? throw new UserDoesNotExistException(command.Guid);
+            var user = await _userRepository.Get(command.Id)
+                ?? throw new UserDoesNotExistException(command.Id);
 
             var userPasswordService = new PasswordHasherBasedUserPasswordService(_passwordHasher, new DefaultPasswordStrengthPolicy());
             if (!userPasswordService.Verify(user.Password, command.CurrentPassword))

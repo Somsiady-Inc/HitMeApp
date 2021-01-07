@@ -32,7 +32,7 @@ namespace HitMeApp.Indentity.Infrastructure.Controllers
         [HttpPatch("{id:guid}")]
         public async Task<IActionResult> ChangePassword(Guid id, [FromBody] ChangeUserPassword changeUserPassword)
         {
-            changeUserPassword.Guid = id;
+            changeUserPassword.Id = id;
             await _identityModuleClient.Command(changeUserPassword);
             return Ok();
         }
