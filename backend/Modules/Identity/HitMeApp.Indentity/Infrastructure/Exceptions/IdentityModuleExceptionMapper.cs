@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using HitMeApp.Indentity.Application.Exceptions;
-using HitMeApp.Indentity.Core.Exceptions;
 using HitMeApp.Shared.DDD;
 using HitMeApp.Shared.Infrastructure.Exceptions;
 
@@ -15,6 +14,7 @@ namespace HitMeApp.Indentity.Infrastructure.Exceptions
             => exception switch
             {
                 UserAlreadyExistsException ex => new ExceptionResponse(ex.Message, HttpStatusCode.Conflict),
+                UserDoesNotExistException ex => new ExceptionResponse(ex.Message, HttpStatusCode.NotFound),
                 DomainException ex => new ExceptionResponse(ex.Message),
                 AppException ex => new ExceptionResponse(ex.Message),
                 Exception => new ExceptionResponse($"Unknown error occured in the {_assemblyName} module", HttpStatusCode.InternalServerError),

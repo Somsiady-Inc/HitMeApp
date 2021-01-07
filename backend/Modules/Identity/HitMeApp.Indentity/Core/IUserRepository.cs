@@ -7,5 +7,6 @@ namespace HitMeApp.Indentity.Core
         Task Add(User user);
         Task<User> Get(UserId id);
         public Task<bool> Exists(string email);
+        Task Save(User user);
     }
 }

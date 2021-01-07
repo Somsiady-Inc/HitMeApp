@@ -31,6 +31,20 @@ namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
             return _sqlExecutor.RunAsync(connection => connection.ExecuteAsync(query, parameters));
         }
 
+        public Task Save(User user)
+        {
+            var query = $@"UPDATE identity.""user"" SET
+                             email = @{nameof(User.Email)}, 
+                             password = @{nameof(User.Password)}, 
+                             created_at = @{nameof(User.CreatedAt)}, 
+                             updated_at = @{nameof(User.UpdatedAt)}
+                           WHERE id = @{nameof(User.Id)}";
+
+            var dbUser = user.AsDatabaseEntity();
+            var parameters = new { dbUser.Id, dbUser.Email, dbUser.Password, dbUser.CreatedAt, dbUser.UpdatedAt };
+            return _sqlExecutor.RunAsync(connection => connection.ExecuteAsync(query, parameters));
+        }
+
         public Task<bool> Exists(string email)
         {
             var query = $@"SELECT COUNT(1) FROM identity.""user"" WHERE email=@{nameof(email)}";

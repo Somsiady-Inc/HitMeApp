@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
+using HitMeApp.Indentity.Application.Exceptions;
+using HitMeApp.Indentity.Core.Events;
 using HitMeApp.Indentity.Core.Exceptions;
 using HitMeApp.Indentity.Core.Services;
 using HitMeApp.Shared.DDD;
@@ -56,6 +58,17 @@ namespace HitMeApp.Indentity.Core
             Password = password;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt ?? createdAt;
+        }
+
+        public void ChangePassword(string password, IUserPasswordService userPasswordService)
+        {
+            if (userPasswordService.Verify(Password, password))
+                throw new NewPasswordIsTheSameAsOldOneException();
+
+            var newPassword = userPasswordService.GeneratePasswordForUser(password);
+            Password = newPassword;
+            UpdatedAt = DateTime.Now;
+            RaiseDomainEvent(new UserPasswordChanged(Id));
         }
     }
 }
