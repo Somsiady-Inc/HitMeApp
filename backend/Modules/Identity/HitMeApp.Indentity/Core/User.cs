@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 using HitMeApp.Indentity.Core.Exceptions;
+using HitMeApp.Indentity.Core.Policies;
 using HitMeApp.Indentity.Core.Services;
 using HitMeApp.Shared.DDD;
 
@@ -23,28 +24,11 @@ namespace HitMeApp.Indentity.Core
         public DateTime CreatedAt { get; private init; }
         public DateTime UpdatedAt { get; private set; }
 
-        public static User New(string email, string password, IUserPasswordService userPasswordService)
+        public static User New(string email, string password, IUserPasswordService userPasswordService, IEmailValidityPolicy emailValidityPolicy)
         {
-            if (!IsEmailValid(email))
-            {
-                throw new InvalidEmailException(email);
-            }
-
+            emailValidityPolicy.Validate(email);
             var now = DateTime.UtcNow;
             return new User(Guid.NewGuid(), email, userPasswordService.GeneratePasswordForUser(password), now);
-        }
-
-        private static bool IsEmailValid(string email)
-        {
-            try
-            {
-                var emailAddress = new MailAddress(email);
-                return emailAddress.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         public static User Load(Guid id, string email, string password, DateTime createdAt, DateTime updatedAt)
