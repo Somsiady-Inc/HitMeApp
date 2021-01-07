@@ -28,5 +28,13 @@ namespace HitMeApp.Indentity.Infrastructure.Controllers
             var routeValuesAndContent = new { id };
             return CreatedAtAction(nameof(Get), routeValuesAndContent, routeValuesAndContent);
         }
+
+        [HttpPatch("{id:guid}")]
+        public async Task<IActionResult> ChangePassword(Guid id, [FromBody] ChangeUserPassword changeUserPassword)
+        {
+            changeUserPassword.Id = id;
+            await _identityModuleClient.Command(changeUserPassword);
+            return Ok();
+        }
     }
 }

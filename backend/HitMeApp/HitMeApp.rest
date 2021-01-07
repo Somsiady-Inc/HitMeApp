@@ -30,3 +30,13 @@ Content-Type: application/json
 
 {
 }
+
+###
+# @name ChangeUserPassword
+PATCH {{identityUrl}}/{{userId}}
+Content-Type: application/json
+
+{
+    "CurrentPassword": "Secret123$",
+    "NewPassword": "NewSecret123$"
+}
