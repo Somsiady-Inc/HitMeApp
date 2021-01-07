@@ -2,6 +2,7 @@
 using Autofac;
 using HitMeApp.Indentity.Contract.Clients;
 using HitMeApp.Indentity.Core;
+using HitMeApp.Indentity.Core.Policies;
 using HitMeApp.Indentity.Infrastructure.Exceptions;
 using HitMeApp.Indentity.Infrastructure.IoC;
 using HitMeApp.Shared.Infrastructure.Cqrs;
@@ -35,6 +36,7 @@ namespace HitMeApp.Indentity
             var logger = Log.Logger.ForModule("Identity");
             containerBuilder.RegisterInstance(logger).As<ILogger>().SingleInstance();
             containerBuilder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<DefaultEmailValidityPolicy>().As<IEmailValidityPolicy>().InstancePerLifetimeScope();
             containerBuilder.AddCqrs();
             containerBuilder.UseInMemoryIntegrationEvents();
             containerBuilder.RegisterModule(new PostgresPersistenceIocModule(configuration));

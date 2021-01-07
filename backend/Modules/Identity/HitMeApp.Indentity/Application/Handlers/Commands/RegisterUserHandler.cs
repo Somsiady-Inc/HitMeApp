@@ -15,14 +15,17 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
     internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, Guid>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IEmailValidityPolicy _emailValidityPolicy;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IIntegrationEventBusClient _integrationEventBusClient;
 
         public RegisterUserHandler(IUserRepository userRepository,
+                                   IEmailValidityPolicy emailValidityPolicy,
                                    IPasswordHasher<User> passwordHasher,
                                    IIntegrationEventBusClient integrationEventBusClient)
         {
             _userRepository = userRepository;
+            _emailValidityPolicy = emailValidityPolicy;
             _passwordHasher = passwordHasher;
             _integrationEventBusClient = integrationEventBusClient;
         }
@@ -35,7 +38,7 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
             }
 
             var passwordService = new PasswordHasherBasedUserPasswordService(_passwordHasher, new DefaultPasswordStrengthPolicy());
-            var user = User.New(command.Email, command.Password, passwordService);
+            var user = User.New(command.Email, command.Password, passwordService, _emailValidityPolicy);
             await _userRepository.Add(user);
             await _integrationEventBusClient.Publish(new UserRegistered(user.Id));
             return user.Id;
