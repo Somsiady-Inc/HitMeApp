@@ -1,9 +1,76 @@
 ﻿using System;
+using System.Collections.Generic;
+using HitMeApp.Shared.DDD;
+using HitMeApp.Users.Core.Events;
 
 namespace HitMeApp.Users.Core
 {
-    internal class User
+    internal sealed class UserId : EntityId
     {
-        public Guid Id { get; }
+        public UserId(Guid id) : base(id)
+        {
+        }
+    }
+
+    internal class User : AggregateRoot<UserId>
+    {
+        private readonly ISet<Trait> _traits;
+        private readonly ISet<Trait> _preferences;
+
+        public Location Location { get; private set; }
+        public IEnumerable<Trait> Traits => _traits;
+        public IEnumerable<Trait> Preferences => _preferences;
+        public PersonalInfo PersonalInfo { get; private set; }
+        public bool Complete => PersonalInfo is { } && PersonalInfo.Valid;
+
+        public User(UserId id) : base(id)
+        {
+        }
+
+        public void AddPreference(Trait preference)
+        {
+            // TODO: Maybe we should add a preference limit?
+            if (!_preferences.Contains(preference))
+            {
+                _preferences.Add(preference);
+                RaiseDomainEvent(new UserAddedPreference(Id, preference));
+            }
+        }
+
+        public void RemovePreference(Trait preference)
+        {
+            // TODO: Should we have required preferences?
+            if (_preferences.Contains(preference))
+            {
+                _preferences.Remove(preference);
+                RaiseDomainEvent(new UserRemovedPreference(Id, preference));
+            }
+        }
+
+        public void AddTrait(Trait trait)
+        {
+            // TODO: Maybe we should add a preference limit?
+            if (!_traits.Contains(trait))
+            {
+                _traits.Add(trait);
+                RaiseDomainEvent(new UserAddedTrait(Id, trait));
+            }
+        }
+
+        public void RemoveTrait(Trait trait)
+        {
+            // TODO: Should we have required preferences?
+            if (_traits.Contains(trait))
+            {
+                _traits.Remove(trait);
+                RaiseDomainEvent(new UserRemovedTrait(Id, trait));
+            }
+        }
+
+        public void ChangePersonalInfo(PersonalInfo newPersonalInfo)
+        {
+            PersonalInfo = newPersonalInfo;
+            RaiseDomainEvent(new UserProfileUpdated(Id, PersonalInfo, Complete));
+        }
     }
 }
