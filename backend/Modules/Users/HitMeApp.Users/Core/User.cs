@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HitMeApp.Shared.DDD;
 using HitMeApp.Users.Core.Events;
 
@@ -10,6 +11,9 @@ namespace HitMeApp.Users.Core
         public UserId(Guid id) : base(id)
         {
         }
+
+        public static implicit operator UserId(Guid guid)
+            => new UserId(guid);
     }
 
     internal class User : AggregateRoot<UserId>
@@ -23,8 +27,18 @@ namespace HitMeApp.Users.Core
         public PersonalInfo PersonalInfo { get; private set; }
         public bool Complete => PersonalInfo is { } && PersonalInfo.Valid;
 
-        public User(UserId id) : base(id)
+        public static User Incomplete(Guid id)
+            => new User(id);
+
+        public static User Load(Guid id, IEnumerable<Trait> traits, IEnumerable<Trait> preferences, PersonalInfo personalInfo)
+            => new User(id, traits, preferences, personalInfo);
+
+        protected User(UserId id, IEnumerable<Trait> traits = null, IEnumerable<Trait> preferences = null, PersonalInfo personalInfo = null)
+            : base(id)
         {
+            _traits = traits?.ToHashSet() ?? new HashSet<Trait>();
+            _preferences = preferences?.ToHashSet() ?? new HashSet<Trait>();
+            PersonalInfo = personalInfo;
         }
 
         public void AddPreference(Trait preference)
