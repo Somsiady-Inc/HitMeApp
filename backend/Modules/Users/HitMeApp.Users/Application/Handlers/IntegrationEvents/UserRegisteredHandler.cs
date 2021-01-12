@@ -1,24 +1,29 @@
 ﻿using System.Threading.Tasks;
 using HitMeApp.Identity.IntegrationEvents;
 using HitMeApp.Shared.Infrastructure.Integration;
-using Serilog;
+using HitMeApp.Users.Application.Exceptions;
+using HitMeApp.Users.Core;
 
 namespace HitMeApp.Users.Application.Handlers.IntegrationEvents
 {
     internal sealed class UserRegisteredHandler : IIntegrationEventHandler<UserRegistered>
     {
-        private readonly ILogger _logger;
+        private readonly IUserRepository _userRepository;
 
-        public UserRegisteredHandler(ILogger logger)
+        public UserRegisteredHandler(IUserRepository userRepository)
         {
-            _logger = logger;
+            _userRepository = userRepository;
         }
 
-        public Task Handle(UserRegistered @event)
+        public async Task Handle(UserRegistered @event)
         {
-            // TODO: Implementation needed. For now it's just a showcase of how integration events operate
-            _logger.Information("Handling {eventName} event with payload: {@event}", nameof(UserRegistered), @event);
-            return Task.CompletedTask;
+            if (await _userRepository.Exists(@event.UserId))
+            {
+                throw new UserAlreadyExistsException(@event.UserId);
+            }
+
+            var user = User.Incomplete(@event.UserId);
+            await _userRepository.Add(user);
         }
     }
 }
