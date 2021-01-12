@@ -36,5 +36,12 @@ namespace HitMeApp.Indentity.Infrastructure.Controllers
             await _identityModuleClient.Command(changeUserPassword);
             return Ok();
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LogIn([FromBody] LoginUser loginUser)
+        {
+            await _identityModuleClient.Command(loginUser);
+            return Ok();
+        }
     }
 }

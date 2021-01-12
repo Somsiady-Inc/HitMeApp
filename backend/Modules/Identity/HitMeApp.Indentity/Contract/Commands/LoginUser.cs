@@ -2,7 +2,7 @@
 
 namespace HitMeApp.Indentity.Contract.Commands
 {
-    class LoginUser : IIdentityCommand<Guid>
+    public class LoginUser : IIdentityCommand<Guid>
     {
         public Guid Id { get; init; }
         public string Email { get; init; }
