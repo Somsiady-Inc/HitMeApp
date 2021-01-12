@@ -63,7 +63,6 @@ namespace HitMeApp.Users.Core
 
         public void AddTrait(Trait trait)
         {
-            // TODO: Maybe we should add a preference limit?
             if (!_traits.Contains(trait))
             {
                 _traits.Add(trait);
@@ -73,7 +72,6 @@ namespace HitMeApp.Users.Core
 
         public void RemoveTrait(Trait trait)
         {
-            // TODO: Should we have required preferences?
             if (_traits.Contains(trait))
             {
                 _traits.Remove(trait);
