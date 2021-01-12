@@ -23,8 +23,8 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
 
         public async Task<Guid> Handle(LoginUser command)
         {
-            var user = await _userRepository.Get(command.Id)
-                ?? throw new UserDoesNotExistException(command.Id);
+            var user = await _userRepository.Get(command.Email)
+                ?? throw new UserDoesNotExistException(command.Email);
 
             var userPasswordService = new PasswordHasherBasedUserPasswordService(_passwordHasher, new DefaultPasswordStrengthPolicy());
             if (!userPasswordService.Verify(user.Password, command.Password))

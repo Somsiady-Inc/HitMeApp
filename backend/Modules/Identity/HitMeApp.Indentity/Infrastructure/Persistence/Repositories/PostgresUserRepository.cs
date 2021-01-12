@@ -57,5 +57,12 @@ namespace HitMeApp.Indentity.Infrastructure.Persistence.Repositories
             var dbUser = await _sqlExecutor.RunAsync(connection => connection.QueryFirstOrDefaultAsync<UserEntity>(query, new { id = id.Value }));
             return dbUser.AsDomainEntity();
         }
+
+        public async Task<User> Get(string email)
+        {
+            var query = $@"SELECT id, email, password, created_at, updated_at FROM identity.""user"" WHERE email=@{nameof(email)}";
+            var dbUser = await _sqlExecutor.RunAsync(connection => connection.QueryFirstOrDefaultAsync<UserEntity>(query, new { email }));
+            return dbUser.AsDomainEntity();
+        }
     }
 }

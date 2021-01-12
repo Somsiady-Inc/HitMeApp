@@ -40,3 +40,13 @@ Content-Type: application/json
     "CurrentPassword": "Secret123$",
     "NewPassword": "NewSecret123$"
 }
+
+###
+# @name UserLogIn
+POST {{identityUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "test@hitmeapp.com",
+    "password": "Secret123$"
+}
