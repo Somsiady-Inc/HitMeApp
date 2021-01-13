@@ -11,12 +11,12 @@ namespace HitMeApp.Users.Core
 
         public string Nickname { get; }
         public string Description { get; }
-        public DateTime BirthDate { get; }
+        public DateTime? BirthDate { get; }
         public Sex Sex { get; }
 
         public PersonalInfo(string nickname,
                             string description,
-                            DateTime birthDate,
+                            DateTime? birthDate,
                             Sex sex,
                             IMinimalAgeSpecification minimalAgeSpecification)
         {
