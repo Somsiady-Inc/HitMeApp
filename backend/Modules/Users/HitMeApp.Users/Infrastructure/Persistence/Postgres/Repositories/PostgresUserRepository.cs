@@ -23,6 +23,13 @@ namespace HitMeApp.Users.Infrastructure.Persistence.Postgres.Repositories
             return _sqlQueryRunner.RunAsync(connection => connection.ExecuteAsync(query, new { userEntity.Id }));
         }
 
+        public async Task<User> Get(UserId id)
+        {
+            var query = $@"SELECT id, nickname, description, birth_date AS birthDate, sex FROM ""user"".""user"" WHERE id = @{nameof(id)}";
+            var userEntity = await _sqlQueryRunner.RunAsync(connection => connection.QueryFirstOrDefaultAsync<UserEntity>(query, new { id = id.Value }));
+            return userEntity?.AsDomainUser();
+        }
+
         public Task Update(User user)
         {
             var updateUserQuery = $@"

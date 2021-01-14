@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace HitMeApp.Users.Infrastructure.Persistence.Postgres.Entities
+namespace HitMeApp.Users.Contract.Dtos
 {
-    internal class UserEntity
+    public class UserDto
     {
         public Guid Id { get; init; }
         public double? Latitude { get; init; }
@@ -12,7 +11,5 @@ namespace HitMeApp.Users.Infrastructure.Persistence.Postgres.Entities
         public string Description { get; init; }
         public DateTime? BirthDate { get; init; }
         public byte? Sex { get; init; }
-        public IEnumerable<TraitEntity> Traits { get; init; }
-        public IEnumerable<TraitEntity> Preferences { get; init; }
     }
 }

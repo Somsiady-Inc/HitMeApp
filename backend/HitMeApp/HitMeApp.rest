@@ -30,3 +30,21 @@ Content-Type: application/json
 
 {
 }
+
+# ******************************************************* #
+# ---------------------- Users -------------------------- #
+# ******************************************************* #
+
+@usersUrl = {{url}}/users
+
+###
+# @name ChangePersonalInfo
+PUT {{usersUrl}}/{{userId}}/personal-info
+Content-Type: application/json
+
+{
+    "nickname": "SampleUser",
+    "description": "Some description about me",
+    "birthDate": "1920-05-18T21:37:00",
+    "sex": 1
+}

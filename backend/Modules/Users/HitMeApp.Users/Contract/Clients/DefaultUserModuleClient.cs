@@ -15,6 +15,12 @@ namespace HitMeApp.Users.Contract.Clients
             await scope.Resolve<ICommandBus>().Dispatch(command);
         }
 
+        public async Task<TResult> Command<TResult>(IUserCommand<TResult> command)
+        {
+            using var scope = UserModuleCompositionRoot.BeginLifetimeScope();
+            return await scope.Resolve<ICommandBus>().Dispatch(command);
+        }
+
         public async Task<TResult> Query<TResult>(IUserQuery<TResult> query)
         {
             using var scope = UserModuleCompositionRoot.BeginLifetimeScope();

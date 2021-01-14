@@ -26,7 +26,9 @@ CREATE TABLE IF NOT EXISTS "user"."user"
     nickname VARCHAR(20) NULL,
     description VARCHAR(255) NULL,
     birth_date timestamp without time zone DEFAULT (now() at time zone 'utc') NULL,
-    sex BIT NULL
+    sex SMALLINT NULL,
+    latitude float(8) NULL,
+    longitude float(8) NULL
 );
 
 ALTER TABLE "user"."user" OWNER to postgres;
@@ -34,9 +36,7 @@ ALTER TABLE "user"."user" OWNER to postgres;
 CREATE TABLE IF NOT EXISTS "user"."trait"
 (
     id uuid NOT NULL PRIMARY KEY,
-    value VARCHAR(30) UNIQUE NOT NULL,
-    latitude float(8) NULL,
-    longitude float(8) NULL
+    value VARCHAR(30) UNIQUE NOT NULL
 );
 
 ALTER TABLE "user"."trait" OWNER to postgres;
