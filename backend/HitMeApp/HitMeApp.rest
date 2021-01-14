@@ -48,3 +48,13 @@ Content-Type: application/json
     "birthDate": "1920-05-18T21:37:00",
     "sex": 1
 }
+
+###
+# @name ChangeLocation
+PUT {{usersUrl}}/{{userId}}/location
+Content-Type: application/json
+
+{
+    "latitude": 52.237049,
+    "longitude": 21.017532
+}

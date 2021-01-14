@@ -23,5 +23,13 @@ namespace HitMeApp.Users.Infrastructure.Controllers
             var updatedUser = await _userModuleClient.Command(command);
             return Ok(updatedUser);
         }
+
+        [HttpPut("{id:guid}/location")]
+        public async Task<IActionResult> Put(Guid id, ChangeLocation command)
+        {
+            command.UserId = id;
+            await _userModuleClient.Command(command);
+            return Ok();
+        }
     }
 }

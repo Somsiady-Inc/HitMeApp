@@ -84,5 +84,11 @@ namespace HitMeApp.Users.Core
             PersonalInfo = newPersonalInfo;
             RaiseDomainEvent(new UserProfileUpdated(Id, PersonalInfo, Complete));
         }
+
+        public void ChangeLocation(Location location)
+        {
+            Location = location;
+            RaiseDomainEvent(new UserLocationChanged(Id, Location));
+        }
     }
 }
