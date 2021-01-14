@@ -13,7 +13,7 @@ namespace HitMeApp.Users.Infrastructure.Persistence.Postgres.Entities
                 Nickname = user.PersonalInfo?.Nickname,
                 Description = user.PersonalInfo?.Description,
                 BirthDate = user.PersonalInfo?.BirthDate,
-                Sex = user.PersonalInfo is { } ? (byte)user.PersonalInfo.Sex : null,
+                Sex = user.PersonalInfo is { } ? (byte)user.PersonalInfo.Sex.Value : null,
                 Latitude = user.Location?.Latitude,
                 Longitude = user.Location?.Longitude,
                 Traits = user.Traits?.Select(trait => trait.AsDatabaseEntity()),
@@ -29,7 +29,7 @@ namespace HitMeApp.Users.Infrastructure.Persistence.Postgres.Entities
                     userEntity.Nickname,
                     userEntity.Description,
                     userEntity.BirthDate,
-                    userEntity.Sex is null ? Sex.NotKnown : (Sex)userEntity.Sex,
+                    userEntity.Sex is null ? Sex.NotKnown : Sex.From(userEntity.Sex.GetValueOrDefault()),
                     new MinimalAgeSpecification()
                 )
             );

@@ -20,7 +20,7 @@ namespace HitMeApp.Users.Application.Handlers.Commands
         public async Task<UserDto> Handle(ChangePersonalInfo command)
         {
             var user = await _userRepository.Get(command.UserId) ?? throw new UserNotFoundException(command.UserId);
-            var sex = command.Sex.HasValue ? (Sex)command.Sex.Value : Sex.NotKnown;
+            var sex = Sex.From(command.Sex.GetValueOrDefault());
             var personalInfo = new PersonalInfo(command.Nickname, command.Description, command.BirthDate, sex, new MinimalAgeSpecification());
             user.ChangePersonalInfo(personalInfo);
             await _userRepository.Update(user);

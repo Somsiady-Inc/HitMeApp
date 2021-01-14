@@ -11,7 +11,7 @@ namespace HitMeApp.Users.Contract.Dtos
                 Nickname = user.PersonalInfo?.Nickname,
                 Description = user.PersonalInfo?.Description,
                 BirthDate = user.PersonalInfo?.BirthDate,
-                Sex = user.PersonalInfo?.Sex is null ? (byte)Sex.NotKnown : (byte)user.PersonalInfo.Sex,
+                Sex = user.PersonalInfo?.Sex is null ? (byte)Sex.NotKnown.Value : (byte)user.PersonalInfo.Sex.Value,
                 Longitude = user.Location?.Longitude,
                 Latitude = user.Location?.Latitude
             };
