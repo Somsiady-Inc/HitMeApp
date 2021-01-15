@@ -6,22 +6,24 @@ using HitMeApp.Indentity.Contract.Commands;
 using HitMeApp.Indentity.Core;
 using HitMeApp.Indentity.Core.Policies;
 using HitMeApp.Shared.Infrastructure.Cqrs.Commands;
+using HitMeApp.Shared.Infrastructure.Security.Jwt;
 using Microsoft.AspNetCore.Identity;
 
 namespace HitMeApp.Indentity.Application.Handlers.Commands
 {
-    internal sealed class LoginUserHandler : ICommandHandler<LoginUser, Guid>
+    internal sealed class LoginUserHandler : ICommandHandler<LoginUser, JsonWebToken>
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IJwtHandler _jwtHandler;
 
-        public LoginUserHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
+        public LoginUserHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _jwtHandler = jwtHandler;
         }
-
-        public async Task<Guid> Handle(LoginUser command)
+        public async Task<JsonWebToken> Handle(LoginUser command)
         {
             var user = await _userRepository.Get(command.Email)
                 ?? throw new UserDoesNotExistException(command.Email);
@@ -30,8 +32,7 @@ namespace HitMeApp.Indentity.Application.Handlers.Commands
             if (!userPasswordService.Verify(user.Password, command.Password))
                 throw new InvalidCredentialsException();
 
-            await _userRepository.Save(user);
-            return user.Id;
+            return _jwtHandler.Create(user.Email, user.Id);
         }
     }
 }

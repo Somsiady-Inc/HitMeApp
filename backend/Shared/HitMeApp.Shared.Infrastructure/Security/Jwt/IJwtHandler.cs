@@ -1,7 +1,6 @@
 ﻿using System;
-using HitMeApp.Indentity.Application.Models;
 
-namespace HitMeApp.Indentity.Application.Services
+namespace HitMeApp.Shared.Infrastructure.Security.Jwt
 {
     public interface IJwtHandler
     {

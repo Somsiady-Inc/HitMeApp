@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HitMeApp.Indentity.Application.Models
+﻿namespace HitMeApp.Shared.Infrastructure.Security.Jwt
 {
     public class JsonWebToken
     {

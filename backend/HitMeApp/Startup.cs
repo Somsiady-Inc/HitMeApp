@@ -52,12 +52,12 @@ namespace HitMeApp.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseErrorHandler<GlobalFallbackExceptionMapper>();
 
             app.UseIdentityModule();
             app.UseUsersModule();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
