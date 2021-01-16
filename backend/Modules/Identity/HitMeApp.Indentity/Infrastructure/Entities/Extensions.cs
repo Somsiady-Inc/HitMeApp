@@ -15,6 +15,6 @@ namespace HitMeApp.Indentity.Infrastructure.Entities
             };
 
         public static User AsDomainEntity(this UserEntity user)
-            => user is null ? null : User.Load(new UserId(user.Id), user.Email, user.Password, user.CreatedAt, user.UpdatedAt);
+            => user is not null ? User.Load(new UserId(user.Id), user.Email, user.Password, user.CreatedAt, user.UpdatedAt) : null;
     }
 }
