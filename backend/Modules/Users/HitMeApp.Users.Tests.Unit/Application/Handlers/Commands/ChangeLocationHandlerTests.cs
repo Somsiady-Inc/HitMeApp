@@ -71,7 +71,7 @@ namespace HitMeApp.Users.Tests.Unit.Application.Handlers.Commands
             };
             var minimalAgeSpecification = Substitute.For<IMinimalAgeSpecification>();
             minimalAgeSpecification.IsSatisfiedBy(Arg.Any<PersonalInfo>()).Returns(true);
-            var personalInfo = new PersonalInfo(
+            var personalInfo = PersonalInfo.Load(
                 "Test",
                 "Test description",
                 new DateTime(1920, 5, 20),

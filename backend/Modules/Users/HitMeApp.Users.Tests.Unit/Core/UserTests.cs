@@ -187,7 +187,7 @@ namespace HitMeApp.Users.Tests.Unit.Core
         public void change_personal_info_with_incomplete_data_should_mark_user_as_incomplete()
         {
             var minimalAgeSpecificationMock = Substitute.For<IMinimalAgeSpecification>();
-            var personalInfo = new PersonalInfo(null, null, null, null, minimalAgeSpecificationMock);
+            var personalInfo = PersonalInfo.Empty(minimalAgeSpecificationMock);
             minimalAgeSpecificationMock.IsSatisfiedBy(personalInfo).Returns(false);
 
             _user.ChangePersonalInfo(personalInfo);
@@ -199,7 +199,7 @@ namespace HitMeApp.Users.Tests.Unit.Core
         public void change_personal_info_with_complete_data_should_mark_user_as_complete()
         {
             var minimalAgeSpecificationMock = Substitute.For<IMinimalAgeSpecification>();
-            var personalInfo = new PersonalInfo(
+            var personalInfo = PersonalInfo.Load(
                 "Test",
                 "Test Description",
                 new DateTime(1920, 5, 18),
@@ -219,7 +219,7 @@ namespace HitMeApp.Users.Tests.Unit.Core
             var location = Location.New(41.902222222222, 12.456388888889);
             var minimalAgeSpecification = Substitute.For<IMinimalAgeSpecification>();
             minimalAgeSpecification.IsSatisfiedBy(Arg.Any<PersonalInfo>()).Returns(true);
-            var personalInfo = new PersonalInfo(
+            var personalInfo = PersonalInfo.Load(
                 "Test",
                 "Test description",
                 new DateTime(1920, 5, 20),

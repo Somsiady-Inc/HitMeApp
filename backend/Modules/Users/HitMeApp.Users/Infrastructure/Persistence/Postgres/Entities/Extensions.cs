@@ -25,7 +25,7 @@ namespace HitMeApp.Users.Infrastructure.Persistence.Postgres.Entities
                 userEntity.Id,
                 userEntity.Traits?.Select(trait => trait.AsDomainEntity()),
                 userEntity.Preferences?.Select(preference => preference.AsDomainEntity()),
-                new PersonalInfo(
+                PersonalInfo.Load(
                     userEntity.Nickname,
                     userEntity.Description,
                     userEntity.BirthDate,

@@ -14,7 +14,7 @@ namespace HitMeApp.Users.Core
         public DateTime? BirthDate { get; }
         public Sex Sex { get; }
 
-        public PersonalInfo(string nickname,
+        protected PersonalInfo(string nickname,
                             string description,
                             DateTime? birthDate,
                             Sex sex,
@@ -27,17 +27,26 @@ namespace HitMeApp.Users.Core
             _minimalAgeSpecification = minimalAgeSpecification;
         }
 
+        public static PersonalInfo Empty(IMinimalAgeSpecification minimalAgeSpecification)
+            => new PersonalInfo(null, null, null, null, minimalAgeSpecification);
+
+        public static PersonalInfo Load(string nickname, string description, DateTime? birthDate, Sex sex, IMinimalAgeSpecification minimalAgeSpecification)
+            => new PersonalInfo(nickname, description, birthDate, sex, minimalAgeSpecification);
+
         public PersonalInfo WithNickname(string nickname)
-            => new PersonalInfo(nickname, Description, BirthDate, Sex, _minimalAgeSpecification);
+            => new PersonalInfo(nickname?.Trim(), Description, BirthDate, Sex, _minimalAgeSpecification);
 
         public PersonalInfo WithDescription(string description)
-            => new PersonalInfo(Nickname, description, BirthDate, Sex, _minimalAgeSpecification);
+            => new PersonalInfo(Nickname, description?.Trim(), BirthDate, Sex, _minimalAgeSpecification);
 
         public PersonalInfo WithBirthDate(DateTime birthDate)
             => new PersonalInfo(Nickname, Description, birthDate, Sex, _minimalAgeSpecification);
 
         public PersonalInfo WithSex(Sex sex)
             => new PersonalInfo(Nickname, Description, BirthDate, sex, _minimalAgeSpecification);
+
+        public PersonalInfo WithSex(int? sexValue)
+            => WithSex(Sex.From(sexValue.GetValueOrDefault()));
 
         public bool Valid => !string.IsNullOrWhiteSpace(Nickname) &&
             Nickname.Length > 3 &&

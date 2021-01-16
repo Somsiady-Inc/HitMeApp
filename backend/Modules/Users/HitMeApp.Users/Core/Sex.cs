@@ -41,5 +41,8 @@ namespace HitMeApp.Users.Core
         {
             yield return Value;
         }
+
+        public static implicit operator int(Sex sex)
+            => sex.Value;
     }
 }
