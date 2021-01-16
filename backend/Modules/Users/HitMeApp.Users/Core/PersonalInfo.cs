@@ -39,7 +39,7 @@ namespace HitMeApp.Users.Core
         public PersonalInfo WithSex(Sex sex)
             => new PersonalInfo(Nickname, Description, BirthDate, sex, _minimalAgeSpecification);
 
-        public bool Valid => string.IsNullOrWhiteSpace(Nickname) &&
+        public bool Valid => !string.IsNullOrWhiteSpace(Nickname) &&
             Nickname.Length > 3 &&
             _minimalAgeSpecification.IsSatisfiedBy(this) &&
             Sex != Sex.NotKnown && Sex != Sex.NotApplicable;

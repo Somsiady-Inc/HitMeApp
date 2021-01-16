@@ -17,9 +17,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-// Some of the dynamic bindings require the internals to be visible
-// TODO: Think about a better alternative
 [assembly: InternalsVisibleTo("HitMeApp.Shared.Infrastructure")]
+[assembly: InternalsVisibleTo("HitMeApp.Users.Tests.Unit")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace HitMeApp.Users
 {
@@ -62,5 +62,8 @@ namespace HitMeApp.Users
             var busSubscriber = container.Resolve<IIntegrationEventBusSubscriber>();
             busSubscriber.Subscribe<UserRegistered, UserRegisteredHandler>();
         }
+
+        internal static bool EqualsIgnoreCase(this string a, string b)
+            => b is { } && a.ToLowerInvariant() == b.ToLowerInvariant();
     }
 }

@@ -44,7 +44,7 @@ namespace HitMeApp.Users.Core
         public void AddPreference(Trait preference)
         {
             // TODO: Maybe we should add a preference limit?
-            if (!_preferences.Contains(preference))
+            if (!IsPreferenceAlreadyAdded(preference))
             {
                 _preferences.Add(preference);
                 RaiseDomainEvent(new UserAddedPreference(Id, preference));
@@ -54,16 +54,17 @@ namespace HitMeApp.Users.Core
         public void RemovePreference(Trait preference)
         {
             // TODO: Should we have required preferences?
-            if (_preferences.Contains(preference))
+            if (IsPreferenceAlreadyAdded(preference))
             {
-                _preferences.Remove(preference);
-                RaiseDomainEvent(new UserRemovedPreference(Id, preference));
+                var preferenceToRemove = _preferences.First(p => p.Id == preference.Id);
+                _preferences.Remove(preferenceToRemove);
+                RaiseDomainEvent(new UserRemovedPreference(Id, preferenceToRemove));
             }
         }
 
         public void AddTrait(Trait trait)
         {
-            if (!_traits.Contains(trait))
+            if (!IsTraitAlreadyAdded(trait))
             {
                 _traits.Add(trait);
                 RaiseDomainEvent(new UserAddedTrait(Id, trait));
@@ -72,10 +73,11 @@ namespace HitMeApp.Users.Core
 
         public void RemoveTrait(Trait trait)
         {
-            if (_traits.Contains(trait))
+            if (IsTraitAlreadyAdded(trait))
             {
-                _traits.Remove(trait);
-                RaiseDomainEvent(new UserRemovedTrait(Id, trait));
+                var traitToRemove = _traits.First(p => p.Id == trait.Id);
+                _traits.Remove(traitToRemove);
+                RaiseDomainEvent(new UserRemovedTrait(Id, traitToRemove));
             }
         }
 
@@ -90,5 +92,11 @@ namespace HitMeApp.Users.Core
             Location = location;
             RaiseDomainEvent(new UserLocationChanged(Id, Location));
         }
+
+        private bool IsPreferenceAlreadyAdded(Trait preference)
+            => _preferences.Any(p => p.Id == preference.Id);
+
+        private bool IsTraitAlreadyAdded(Trait trait)
+            => _traits.Any(p => p.Id == trait.Id);
     }
 }

@@ -22,13 +22,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Users.Tests", "Modules\Users\HitMeApp.Users.Tests\HitMeApp.Users.Tests.csproj", "{EE7ADE7E-BFAF-4793-8ED2-5E8EA36D4DFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Users.Tests.Unit", "Modules\Users\HitMeApp.Users.Tests.Unit\HitMeApp.Users.Tests.Unit.csproj", "{EE7ADE7E-BFAF-4793-8ED2-5E8EA36D4DFF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{B42DE67A-3545-4811-8AA8-B1401FCA9851}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Indentity", "Modules\Identity\HitMeApp.Indentity\HitMeApp.Indentity.csproj", "{BB46F8C1-E76C-43F6-913B-547C6F1F0F70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HitMeApp.Identity.IntegrationEvents", "Modules\Identity\HitMeApp.Identity.IntegrationEvents\HitMeApp.Identity.IntegrationEvents.csproj", "{19F5E910-6764-4D88-8043-9A9AC7678D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HitMeApp.Identity.IntegrationEvents", "Modules\Identity\HitMeApp.Identity.IntegrationEvents\HitMeApp.Identity.IntegrationEvents.csproj", "{19F5E910-6764-4D88-8043-9A9AC7678D4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
