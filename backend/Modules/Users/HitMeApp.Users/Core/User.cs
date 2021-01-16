@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HitMeApp.Shared.DDD;
 using HitMeApp.Users.Core.Events;
+using HitMeApp.Users.Core.Exceptions;
 
 namespace HitMeApp.Users.Core
 {
@@ -89,6 +90,10 @@ namespace HitMeApp.Users.Core
 
         public void ChangeLocation(Location location)
         {
+            if (!Complete)
+            {
+                throw new CannotUpdateIncompleteUserException(nameof(Location));
+            }
             Location = location;
             RaiseDomainEvent(new UserLocationChanged(Id, Location));
         }

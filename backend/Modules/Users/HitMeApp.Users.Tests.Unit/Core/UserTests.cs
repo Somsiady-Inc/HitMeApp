@@ -217,6 +217,17 @@ namespace HitMeApp.Users.Tests.Unit.Core
         public void given_valid_location_change_location_should_succeed()
         {
             var location = Location.New(41.902222222222, 12.456388888889);
+            var minimalAgeSpecification = Substitute.For<IMinimalAgeSpecification>();
+            minimalAgeSpecification.IsSatisfiedBy(Arg.Any<PersonalInfo>()).Returns(true);
+            var personalInfo = new PersonalInfo(
+                "Test",
+                "Test description",
+                new DateTime(1920, 5, 20),
+                Sex.Male,
+                minimalAgeSpecification
+            );
+            _user.ChangePersonalInfo(personalInfo);
+            _user.ClearEvents();
 
             _user.ChangeLocation(location);
 
