@@ -7,6 +7,8 @@
 @url = http://localhost:5000
 @userId = {{RegisterUser.response.body.id}}
 
+@accessToken = {{UserLogIn.response.body.accessToken}}
+
 # ******************************************************* #
 # ---------------------- Identity ----------------------- #
 # ******************************************************* #
@@ -27,6 +29,7 @@ Content-Type: application/json
 # @name GetUserById
 GET {{identityUrl}}/{{userId}}
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
 }
@@ -35,8 +38,19 @@ Content-Type: application/json
 # @name ChangeUserPassword
 PATCH {{identityUrl}}/{{userId}}
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
     "CurrentPassword": "Secret123$",
     "NewPassword": "NewSecret123$"
+}
+
+###
+# @name UserLogIn
+POST {{identityUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "test@hitmeapp.com",
+    "password": "Secret123$"
 }
