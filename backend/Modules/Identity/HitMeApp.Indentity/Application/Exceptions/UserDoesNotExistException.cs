@@ -15,7 +15,7 @@ namespace HitMeApp.Indentity.Application.Exceptions
             Guid = guid;
         }
 
-        public UserDoesNotExistException(string email): base($"The user with this email address does not exist: {email}")
+        public UserDoesNotExistException(string email) : base($"The user with this email address does not exist: {email}")
         {
             Email = email;
         }

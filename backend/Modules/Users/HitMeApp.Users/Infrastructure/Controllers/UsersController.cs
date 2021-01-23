@@ -1,5 +1,9 @@
-﻿using HitMeApp.Shared.Infrastructure.Web;
+﻿using System;
+using System.Threading.Tasks;
+using HitMeApp.Shared.Infrastructure.Web;
 using HitMeApp.Users.Contract.Clients;
+using HitMeApp.Users.Contract.Commands;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HitMeApp.Users.Infrastructure.Controllers
 {
@@ -10,6 +14,22 @@ namespace HitMeApp.Users.Infrastructure.Controllers
         public UsersController(IUserModuleClient userModuleClient)
         {
             _userModuleClient = userModuleClient;
+        }
+
+        [HttpPut("{id:guid}/personal-info")]
+        public async Task<IActionResult> Put(Guid id, ChangePersonalInfo command)
+        {
+            command.UserId = id;
+            var updatedUser = await _userModuleClient.Command(command);
+            return Ok(updatedUser);
+        }
+
+        [HttpPut("{id:guid}/location")]
+        public async Task<IActionResult> Put(Guid id, ChangeLocation command)
+        {
+            command.UserId = id;
+            await _userModuleClient.Command(command);
+            return Ok();
         }
     }
 }

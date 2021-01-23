@@ -54,3 +54,33 @@ Content-Type: application/json
     "email": "test@hitmeapp.com",
     "password": "Secret123$"
 }
+
+# ******************************************************* #
+# ---------------------- Users -------------------------- #
+# ******************************************************* #
+
+@usersUrl = {{url}}/users
+
+###
+# @name ChangePersonalInfo
+PUT {{usersUrl}}/{{userId}}/personal-info
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "nickname": "SampleUser",
+    "description": "Some description about me",
+    "birthDate": "1920-05-18T21:37:00",
+    "sex": 1
+}
+
+###
+# @name ChangeLocation
+PUT {{usersUrl}}/{{userId}}/location
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "latitude": 41.902222222222,
+    "longitude": 12.456388888889
+}
