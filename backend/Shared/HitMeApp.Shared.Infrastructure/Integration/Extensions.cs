@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
+using HitMeApp.Shared.Infrastructure.Integration.EventProcessor;
 using HitMeApp.Shared.Infrastructure.Integration.Memory;
 
 namespace HitMeApp.Shared.Infrastructure.Integration
@@ -22,6 +23,18 @@ namespace HitMeApp.Shared.Infrastructure.Integration
                     .AsClosedTypesOf(typeof(IIntegrationEventHandler<>))
                     .InstancePerLifetimeScope();
             }
+        }
+
+        public static void UseEventProcessor<TEventMapper>(this ContainerBuilder builder)
+            where TEventMapper : class, IEventMapper
+        {
+            builder.RegisterType<TEventMapper>()
+                .As<IEventMapper>()
+                .SingleInstance();
+
+            builder.RegisterType<DefaultEventProcessor>()
+                .As<IEventProcessor>()
+                .InstancePerLifetimeScope();
         }
     }
 }
